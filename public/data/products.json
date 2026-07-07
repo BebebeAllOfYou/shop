@@ -1,0 +1,233 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "Вешалка настенная",
+      "category": "Вешалки",
+      "price": 2955
+,
+      "oldPrice": 13500,
+      "badge": "Новинка",
+      "image": "/images/products/Вешалка.jpg",
+      "description": "Просторный трёхместный диван с высокими подлокотниками и съёмными чехлами. Каркас из массива берёзы, наполнитель — независимые пружины.",
+      "materials": [ "Массив берёзы", "Независимые пружины", "Съёмный чехол" ],
+      "wildberriesLink": "https://www.wildberries.ru/catalog/766304919/detail.aspx",
+      "dimensions": {
+        "width": 220,
+        "depth": 95,
+        "height": 85
+      },
+      "inStock": true,
+      "featured": true
+    },
+    {
+      "id": 2,
+      "name": "Кресло «Арко»",
+      "category": "Деревянные рейки",
+      "price": 42000,
+      "oldPrice": null,
+      "badge": "Хит",
+      "image": null,
+      "description": "Компактное кресло с мягкой посадкой. Идеально для чтения и отдыха. Ножки из натурального дуба.",
+      "materials": [ "Дуб", "Велюр", "Пенополиуретан" ],
+      "wildberriesLink": null,
+      "dimensions": {
+        "width": 80,
+        "depth": 85,
+        "height": 90
+      },
+      "inStock": true,
+      "featured": true
+    },
+    {
+      "id": 3,
+      "name": "Стол обеденный «Ствол»",
+      "category": "Столы",
+      "price": 67000,
+      "oldPrice": null,
+      "badge": null,
+      "image": null,
+      "description": "Обеденный стол из массива дуба с живым краем. Каждый стол уникален — рисунок дерева не повторяется.",
+      "materials": [ "Массив дуба", "Масло-воск" ],
+      "wildberriesLink": null,
+      "dimensions": {
+        "width": 180,
+        "depth": 90,
+        "height": 75
+      },
+      "inStock": true,
+      "featured": false
+    },
+    {
+      "id": 4,
+      "name": "Шкаф «Лофт»",
+      "category": "Шкафы",
+      "price": 54000,
+      "oldPrice": null,
+      "badge": "Новинка",
+      "image": null,
+      "description": "Распашной шкаф в индустриальном стиле. Металлический каркас, деревянные полки из сосны.",
+      "materials": [ "Чёрная сталь", "Сосна", "Закалённое стекло" ],
+      "wildberriesLink": null,
+      "dimensions": {
+        "width": 120,
+        "depth": 45,
+        "height": 200
+      },
+      "inStock": true,
+      "featured": false
+    },
+    {
+      "id": 5,
+      "name": "Кровать «Рио»",
+      "category": "Кровати",
+      "price": 78000,
+      "oldPrice": null,
+      "badge": null,
+      "image": null,
+      "description": "Кровать с мягким изголовьем и подъёмным механизмом. Основание из берёзовых ламелей.",
+      "materials": [ "Массив берёзы", "Льняная ткань", "Берёзовые ламели" ],
+      "wildberriesLink": null,
+      "dimensions": {
+        "width": 160,
+        "depth": 200,
+        "height": 110
+      },
+      "inStock": true,
+      "featured": true
+    },
+    {
+      "id": 6,
+      "name": "Тумба прикроватная «Блок»",
+      "category": "Хранение",
+      "price": 18000,
+      "oldPrice": 22000,
+      "badge": "Скидка",
+      "image": null,
+      "description": "Прикроватная тумба с одним ящиком и открытой полкой. Плавные закрыватели, антивандальное покрытие.",
+      "materials": [ "МДФ", "Шпон дуба", "Металлические ручки" ],
+      "wildberriesLink": null,
+      "dimensions": {
+        "width": 45,
+        "depth": 40,
+        "height": 55
+      },
+      "inStock": true,
+      "featured": false
+    },
+    {
+      "id": 7,
+      "name": "Комод «Ясень»",
+      "category": "Хранение",
+      "price": 36000,
+      "oldPrice": null,
+      "badge": null,
+      "image": null,
+      "description": "Четырёхящичный комод из ясеня. Ящики на мягких доводчиках, ручки — кованые.",
+      "materials": [ "Массив ясеня", "Кованые ручки" ],
+      "wildberriesLink": null,
+      "dimensions": {
+        "width": 80,
+        "depth": 45,
+        "height": 100
+      },
+      "inStock": false,
+      "featured": false
+    },
+    {
+      "id": 8,
+      "name": "Стеллаж «Куб»",
+      "category": "Хранение",
+      "price": 29000,
+      "oldPrice": null,
+      "badge": null,
+      "image": null,
+      "description": "Модульный стеллаж из фанеры. Можно собирать в любой конфигурации — от 2 до 12 секций.",
+      "materials": [ "Берёзовая фанера", "Льняное масло" ],
+      "wildberriesLink": null,
+      "dimensions": {
+        "width": 80,
+        "depth": 30,
+        "height": 160
+      },
+      "inStock": true,
+      "featured": false
+    },
+    {
+      "id": 9,
+      "name": "Диван «Уют»",
+      "category": "Диваны",
+      "price": 112000,
+      "oldPrice": null,
+      "badge": "Хит",
+      "image": null,
+      "description": "Угловой диван-трансформер со спальным местом. Бельевой ящик, механизм «еврокнижка».",
+      "materials": [ "Массив берёзы", "Рогожка", "Независимые пружины" ],
+      "wildberriesLink": null,
+      "dimensions": {
+        "width": 270,
+        "depth": 170,
+        "height": 85
+      },
+      "inStock": true,
+      "featured": true
+    },
+    {
+      "id": 10,
+      "name": "Кресло-качалка «Дуга»",
+      "category": "Кресла",
+      "price": 31000,
+      "oldPrice": null,
+      "badge": "Новинка",
+      "image": null,
+      "description": "Классическая качалка из гнутого дуба с мягкими подушками. Подходит для террасы.",
+      "materials": [ "Гнутый дуб", "Уличная ткань" ],
+      "wildberriesLink": null,
+      "dimensions": {
+        "width": 70,
+        "depth": 110,
+        "height": 105
+      },
+      "inStock": true,
+      "featured": false
+    },
+    {
+      "id": 11,
+      "name": "Стол журнальный «Пень»",
+      "category": "Столы",
+      "price": 24000,
+      "oldPrice": 28000,
+      "badge": "Скидка",
+      "image": null,
+      "description": "Журнальный столик из спила дерева на стальных ножках. Каждый экземпляр уникален.",
+      "materials": [ "Спил дерева", "Чёрная сталь", "Эпоксидная смола" ],
+      "wildberriesLink": null,
+      "dimensions": {
+        "width": 70,
+        "depth": 50,
+        "height": 45
+      },
+      "inStock": true,
+      "featured": false
+    },
+    {
+      "id": 12,
+      "name": "Кровать «Скандия»",
+      "category": "Кровати",
+      "price": 95000,
+      "oldPrice": null,
+      "badge": null,
+      "image": null,
+      "description": "Кровать в скандинавском стиле с низким изголовьем и открытыми ножками из массива ясеня.",
+      "materials": [ "Массив ясеня", "Берёзовые ламели" ],
+      "wildberriesLink": null,
+      "dimensions": {
+        "width": 180,
+        "depth": 200,
+        "height": 90
+      },
+      "inStock": true,
+      "featured": false
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "name": "Forma",
+  "tagline": "Мебель из натурального дерева",
+  "founded": 2012,
+  "stats": [
+    { "value": "12+",   "label": "лет опыта"           },
+    { "value": "3 400", "label": "выполненных проектов" },
+    { "value": "98%",   "label": "довольных клиентов"   }
+  ],
+  "contacts": {
+    "phone":   "+7 (999) 123-45-67",
+    "email":   "hello@forma-mebel.ru",
+    "address": "Москва, ул. Столярная, 12, стр. 3",
+    "workHours": {
+      "showroom": "пн–сб 10:00–20:00",
+      "phone":    "пн–вс 9:00–21:00"
+    }
+  },
+  "social": [
+    { "name": "VK",       "url": "https://vk.com/forma"       },
+    { "name": "Telegram", "url": "https://t.me/forma_mebel"   },
+    { "name": "YouTube",  "url": "https://youtube.com/@forma"  }
+  ],
+  "delivery": {
+    "free":      "от 50 000 ₽",
+    "regions":   ["Москва", "МО", "СПб", "ЛО"],
+    "timeframe": "от 3 до 14 рабочих дней"
+  },
+  "warranty": {
+    "period": "2 года",
+    "description": "Гарантия на конструктивные элементы и механизмы"
+  }
+}

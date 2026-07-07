@@ -1,0 +1,68 @@
+/**
+ * InteriorGallery — галерея готовых интерьеров
+ * Макет: одна большая карточка слева + 2 маленьких справа
+ * TODO: добавить лайтбокс при клике на фото
+ */
+
+const GALLERY_ITEMS = [
+  { id: 1, title: 'Скандинавская гостиная',  style: 'Минимализм',   size: 'large'  },
+  { id: 2, title: 'Кабинет в стиле лофт',    style: 'Лофт',         size: 'small'  },
+  { id: 3, title: 'Спальня с подиумом',       style: 'Современный',  size: 'small'  },
+  { id: 4, title: 'Кухня-гостиная open space', style: 'Эклектика',   size: 'medium' },
+  { id: 5, title: 'Детская комната',           style: 'Скандинавский', size: 'medium' },
+]
+
+function GalleryCard({ item, className = '' }) {
+  return (
+    <div className={`group relative bg-stone-100 overflow-hidden cursor-pointer ${className}`}>
+      {/* Заглушка изображения */}
+      <div className="absolute inset-0 flex items-center justify-center text-stone-300 text-xs">
+        [Фото интерьера]
+      </div>
+
+      {/* Оверлей с подписью */}
+      <div className="absolute inset-0 bg-stone-900/0 group-hover:bg-stone-900/50 transition-colors duration-400" />
+      <div className="absolute bottom-0 left-0 right-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+        <p className="text-xs text-primary-300 tracking-wide uppercase">{item.style}</p>
+        <p className="text-white font-display mt-0.5">{item.title}</p>
+      </div>
+    </div>
+  )
+}
+
+export default function InteriorGallery() {
+  return (
+    <section id="gallery" className="py-20 bg-stone-50">
+      <div className="container-site">
+
+        {/* Заголовок */}
+        <div className="mb-10 max-w-xl">
+          <p className="section-label mb-2">Интерьеры</p>
+          <h2 className="section-title">Готовые проекты наших клиентов</h2>
+          <p className="text-stone-500 mt-3 leading-relaxed">
+            Каждый проект — совместная работа с дизайнером. Смотрите, как наша
+            мебель вписывается в самые разные стили и пространства.
+          </p>
+        </div>
+
+        {/* Сетка — ассиметричный layout */}
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-4 h-[520px]">
+          {/* Большая карточка */}
+          <GalleryCard item={GALLERY_ITEMS[0]} className="row-span-2 col-span-1 md:col-span-1" />
+
+          {/* Малые */}
+          <GalleryCard item={GALLERY_ITEMS[1]} />
+          <GalleryCard item={GALLERY_ITEMS[2]} />
+          <GalleryCard item={GALLERY_ITEMS[3]} />
+          <GalleryCard item={GALLERY_ITEMS[4]} />
+        </div>
+
+        {/* Ссылка на все проекты */}
+        <div className="mt-8 text-center">
+          <a href="/gallery" className="btn-outline">Все проекты</a>
+        </div>
+
+      </div>
+    </section>
+  )
+}
