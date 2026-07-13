@@ -49,7 +49,18 @@ export function useProducts() {
     })
   }, [productsData, productsMap])
 
-  const categories = categoriesData?.categories ?? []
+  // Пересчитываем счётчики категорий динамически из реального списка товаров.
+  // Это исправляет расхождение между захардкоженным count в categories.json
+  // и фактическим количеством товаров в каталоге.
+  const categories = useMemo(() => {
+    const base = categoriesData?.categories ?? []
+    return base.map(cat => ({
+      ...cat,
+      count: cat.id === 'all'
+        ? allProducts.length
+        : allProducts.filter(p => p.category === cat.id).length,
+    }))
+  }, [categoriesData, allProducts])
 
   // 1. Фильтрация по категории
   const filtered = useMemo(() => {
