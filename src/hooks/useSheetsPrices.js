@@ -1,20 +1,20 @@
 /**
- * useSheetsPrices — загружает актуальные цены из Google Таблицы через Apps Script.
+ * useSheetsPrices — загружает актуальные данные из Google Таблицы через Apps Script.
  *
- * Возвращает объект `pricesMap` вида:
- *   { [productId]: { price: number, oldPrice: number | null } }
+ * Возвращает объект `productsMap` вида:
+ *   { [productId]: { price: number, oldPrice: number | null, name: string | null } }
  *
  * Логика кэширования:
  *   - При первом запросе данные сохраняются в localStorage
  *   - Повторный fetch происходит не чаще чем раз в PRICES_CACHE_TTL (5 мин)
  *   - Если Google API недоступен — возвращается пустой объект,
- *     и useProducts автоматически использует цены из локального JSON
+ *     и useProducts автоматически использует данные из локального JSON
  */
 
 import { useState, useEffect } from 'react'
 import { SHEETS_PRICES_URL, PRICES_CACHE_TTL } from '../config/catalog'
 
-const CACHE_KEY = 'furniture_sheets_prices_v1'
+const CACHE_KEY = 'furniture_sheets_prices_v2'
 
 /**
  * Читает кэш из localStorage.
@@ -44,9 +44,9 @@ function writeCache(data) {
 }
 
 /**
- * Преобразует массив из Google Sheets в удобный объект { id → цены }.
+ * Преобразует массив из Google Sheets в удобный объект { id → данные товара }.
  */
-function buildPricesMap(sheetsArray) {
+function buildProductsMap(sheetsArray) {
   const map = {}
   for (const item of sheetsArray) {
     const id = Number(item.id)
@@ -54,17 +54,18 @@ function buildPricesMap(sheetsArray) {
     map[id] = {
       price:    Number(item.price)    || 0,
       oldPrice: item.oldPrice != null ? Number(item.oldPrice) : null,
+      name:     item.name?.trim()     || null,
     }
   }
   return map
 }
 
 export function useSheetsPrices() {
-  const [pricesMap, setPricesMap] = useState({})
-  const [loading,   setLoading]   = useState(!!SHEETS_PRICES_URL)
+  const [productsMap, setProductsMap] = useState({})
+  const [loading,     setLoading]     = useState(!!SHEETS_PRICES_URL)
 
   useEffect(() => {
-    // Если URL не задан — модуль выключен, используем локальные цены
+    // Если URL не задан — модуль выключен, используем локальные данные
     if (!SHEETS_PRICES_URL) {
       setLoading(false)
       return
@@ -73,7 +74,7 @@ export function useSheetsPrices() {
     // Проверяем кэш
     const cached = readCache()
     if (cached) {
-      setPricesMap(cached)
+      setProductsMap(cached)
       setLoading(false)
       return
     }
@@ -88,21 +89,21 @@ export function useSheetsPrices() {
       })
       .then(json => {
         if (cancelled) return
-        const map = buildPricesMap(json.prices ?? [])
+        const map = buildProductsMap(json.products ?? [])
         writeCache(map)
-        setPricesMap(map)
+        setProductsMap(map)
         setLoading(false)
       })
       .catch(err => {
         if (cancelled) return
-        console.warn('[useSheetsPrices] Не удалось загрузить цены из Google Таблицы:', err.message)
-        console.warn('[useSheetsPrices] Используются цены из локального products.json')
+        console.warn('[useSheetsPrices] Не удалось загрузить данные из Google Таблицы:', err.message)
+        console.warn('[useSheetsPrices] Используются данные из локального products.json')
         setLoading(false)
-        // pricesMap остаётся пустым — useProducts использует локальные цены
+        // productsMap остаётся пустым — useProducts использует локальные данные
       })
 
     return () => { cancelled = true }
   }, [])
 
-  return { pricesMap, loading }
+  return { productsMap, loading }
 }

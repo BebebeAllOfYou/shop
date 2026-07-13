@@ -28,24 +28,26 @@ export function useProducts() {
   const { data: productsData, loading: loadingP, error: errorP } = useFetch('/data/products.json')
   const { data: categoriesData                                  } = useFetch('/data/categories.json')
 
-  // Цены из Google Таблицы (при пустом URL — не запрашиваются)
-  const { pricesMap, loading: loadingPrices } = useSheetsPrices()
+  // Данные из Google Таблицы (при пустом URL — не запрашиваются)
+  const { productsMap, loading: loadingPrices } = useSheetsPrices()
 
-  // Применяем цены из Google Sheets поверх локальных данных.
-  // Если товар не найден в pricesMap — остаются цены из products.json.
+  // Применяем данные из Google Sheets поверх локальных.
+  // Если товар не найден в productsMap — остаются данные из products.json.
   const allProducts = useMemo(() => {
     const base = productsData?.products ?? []
-    if (!Object.keys(pricesMap).length) return base
+    if (!Object.keys(productsMap).length) return base
     return base.map(p => {
-      const sheetsPrice = pricesMap[p.id]
-      if (!sheetsPrice) return p
+      const fromSheets = productsMap[p.id]
+      if (!fromSheets) return p
       return {
         ...p,
-        price:    sheetsPrice.price,
-        oldPrice: sheetsPrice.oldPrice,
+        price:    fromSheets.price,
+        oldPrice: fromSheets.oldPrice,
+        // Имя обновляем только если менеджер его заполнил в таблице
+        ...(fromSheets.name ? { name: fromSheets.name } : {}),
       }
     })
-  }, [productsData, pricesMap])
+  }, [productsData, productsMap])
 
   const categories = categoriesData?.categories ?? []
 
