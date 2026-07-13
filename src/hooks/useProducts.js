@@ -33,20 +33,24 @@ export function useProducts() {
 
   // Применяем данные из Google Sheets поверх локальных.
   // Если товар не найден в productsMap — остаются данные из products.json.
+  // Товары без названия скрываются из каталога полностью.
   const allProducts = useMemo(() => {
     const base = productsData?.products ?? []
-    if (!Object.keys(productsMap).length) return base
-    return base.map(p => {
-      const fromSheets = productsMap[p.id]
-      if (!fromSheets) return p
-      return {
-        ...p,
-        price:    fromSheets.price,
-        oldPrice: fromSheets.oldPrice,
-        // Имя обновляем только если менеджер его заполнил в таблице
-        ...(fromSheets.name ? { name: fromSheets.name } : {}),
-      }
-    })
+    const merged = !Object.keys(productsMap).length
+      ? base
+      : base.map(p => {
+          const fromSheets = productsMap[p.id]
+          if (!fromSheets) return p
+          return {
+            ...p,
+            price:    fromSheets.price,
+            oldPrice: fromSheets.oldPrice,
+            // Имя обновляем только если менеджер его заполнил в таблице
+            ...(fromSheets.name ? { name: fromSheets.name } : {}),
+          }
+        })
+    // Скрываем позиции без названия (пустая строка или null/undefined)
+    return merged.filter(p => p.name?.trim())
   }, [productsData, productsMap])
 
   // Пересчитываем счётчики категорий динамически из реального списка товаров.
