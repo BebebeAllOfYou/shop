@@ -227,6 +227,82 @@
       },
       "inStock": true,
       "featured": false
+    },
+    {
+      "id": 13,
+      "name": "Кровать «Скандия»",
+      "category": "Кровати",
+      "price": 95000,
+      "oldPrice": null,
+      "badge": null,
+      "image": null,
+      "description": "Кровать в скандинавском стиле с низким изголовьем и открытыми ножками из массива ясеня.",
+      "materials": [ "Массив ясеня", "Берёзовые ламели" ],
+      "wildberriesLink": null,
+      "dimensions": {
+        "width": 180,
+        "depth": 200,
+        "height": 90
+      },
+      "inStock": true,
+      "featured": false
+    },
+    {
+      "id": 14,
+      "name": "Кровать «Скандия»",
+      "category": "Кровати",
+      "price": 95000,
+      "oldPrice": null,
+      "badge": null,
+      "image": null,
+      "description": "Кровать в скандинавском стиле с низким изголовьем и открытыми ножками из массива ясеня.",
+      "materials": [ "Массив ясеня", "Берёзовые ламели" ],
+      "wildberriesLink": null,
+      "dimensions": {
+        "width": 180,
+        "depth": 200,
+        "height": 90
+      },
+      "inStock": true,
+      "featured": false
+    },
+    {
+      "id": 15,
+      "name": "Кровать «Скандия»",
+      "category": "Кровати",
+      "price": 95000,
+      "oldPrice": null,
+      "badge": null,
+      "image": null,
+      "description": "Кровать в скандинавском стиле с низким изголовьем и открытыми ножками из массива ясеня.",
+      "materials": [ "Массив ясеня", "Берёзовые ламели" ],
+      "wildberriesLink": null,
+      "dimensions": {
+        "width": 180,
+        "depth": 200,
+        "height": 90
+      },
+      "inStock": true,
+      "featured": false
+    },
+    {
+      "id": 16,
+      "name": "Кровать «Скандия»",
+      "category": "Кровати",
+      "price": 95000,
+      "oldPrice": null,
+      "badge": null,
+      "image": null,
+      "description": "Кровать в скандинавском стиле с низким изголовьем и открытыми ножками из массива ясеня.",
+      "materials": [ "Массив ясеня", "Берёзовые ламели" ],
+      "wildberriesLink": null,
+      "dimensions": {
+        "width": 180,
+        "depth": 200,
+        "height": 90
+      },
+      "inStock": true,
+      "featured": false
     }
   ]
 }
