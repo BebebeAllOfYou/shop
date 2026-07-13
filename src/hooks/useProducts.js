@@ -1,6 +1,9 @@
 /**
  * useProducts — загрузка товаров и категорий + фильтрация + сортировка
  *
+ * Цены подгружаются из Google Таблицы через useSheetsPrices().
+ * Если URL не задан или Google API недоступен — используются цены из products.json.
+ *
  * Использование:
  *   const {
  *     products, categories,
@@ -12,7 +15,8 @@
  */
 
 import { useState, useMemo } from 'react'
-import { useFetch } from './useFetch'
+import { useFetch }          from './useFetch'
+import { useSheetsPrices }   from './useSheetsPrices'
 
 const PAGE_SIZE = 8
 
@@ -24,8 +28,26 @@ export function useProducts() {
   const { data: productsData, loading: loadingP, error: errorP } = useFetch('/data/products.json')
   const { data: categoriesData                                  } = useFetch('/data/categories.json')
 
-  const allProducts  = productsData?.products   ?? []
-  const categories   = categoriesData?.categories ?? []
+  // Цены из Google Таблицы (при пустом URL — не запрашиваются)
+  const { pricesMap, loading: loadingPrices } = useSheetsPrices()
+
+  // Применяем цены из Google Sheets поверх локальных данных.
+  // Если товар не найден в pricesMap — остаются цены из products.json.
+  const allProducts = useMemo(() => {
+    const base = productsData?.products ?? []
+    if (!Object.keys(pricesMap).length) return base
+    return base.map(p => {
+      const sheetsPrice = pricesMap[p.id]
+      if (!sheetsPrice) return p
+      return {
+        ...p,
+        price:    sheetsPrice.price,
+        oldPrice: sheetsPrice.oldPrice,
+      }
+    })
+  }, [productsData, pricesMap])
+
+  const categories = categoriesData?.categories ?? []
 
   // 1. Фильтрация по категории
   const filtered = useMemo(() => {
@@ -54,7 +76,7 @@ export function useProducts() {
   return {
     products,
     categories,
-    loading: loadingP,
+    loading: loadingP || loadingPrices,
     error:   errorP,
     activeCategory,
     setActiveCategory: handleSetCategory,
