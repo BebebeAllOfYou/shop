@@ -9,6 +9,9 @@
  *   4. Замените значение константы MAP_EMBED_URL ниже
  */
 
+import { useState } from 'react'
+import { useTelegram } from '../hooks/useTelegram'
+
 // ─── НАСТРОЙКИ — меняйте здесь ───────────────────────────────────────────────
 
 /** Координаты цеха: широта, долгота (Лебяжье, Кировская обл.) */
@@ -21,36 +24,12 @@ const WORKSHOP_ADDRESS = 'с. Лебяжье, Кировская область'
 // ─────────────────────────────────────────────────────────────────────────────
 
 const BENEFITS = [
-  {
-    icon: '📦',
-    title: 'Оптовые цены',
-    text: 'Специальные условия от 50 единиц. Чем больше объём — тем выгоднее цена.',
-  },
-  {
-    icon: '🏭',
-    title: 'Собственный цех',
-    text: 'Производство полного цикла. Контроль качества на каждом этапе.',
-  },
-  {
-    icon: '🚚',
-    title: 'Доставка по России',
-    text: 'Отправляем ТК «СДЭК», «Деловые Линии», «ПЭК». Упаковка — за наш счёт.',
-  },
-  {
-    icon: '📐',
-    title: 'Работа под заказ',
-    text: 'Изготовим панели нужного размера, цвета и фактуры по вашим ТЗ.',
-  },
-  {
-    icon: '🤝',
-    title: 'Личный менеджер',
-    text: 'Закреплённый менеджер, быстрые ответы, счета и документы день в день.',
-  },
-  {
-    icon: '📋',
-    title: 'Все документы',
-    text: 'Работаем с ИП и юридическими лицами. Полный пакет закрывающих документов.',
-  },
+  { icon: '📦', title: 'Оптовые цены',      text: 'Специальные условия от 50 единиц. Чем больше объём — тем выгоднее цена.' },
+  { icon: '🏭', title: 'Собственный цех',   text: 'Производство полного цикла. Контроль качества на каждом этапе.' },
+  { icon: '🚚', title: 'Доставка по России', text: 'Отправляем ТК «СДЭК», «Деловые Линии», «ПЭК». Упаковка — за наш счёт.' },
+  { icon: '📐', title: 'Работа под заказ',  text: 'Изготовим панели нужного размера, цвета и фактуры по вашим ТЗ.' },
+  { icon: '🤝', title: 'Личный менеджер',   text: 'Закреплённый менеджер, быстрые ответы, счета и документы день в день.' },
+  { icon: '📋', title: 'Все документы',     text: 'Работаем с ИП и юридическими лицами. Полный пакет закрывающих документов.' },
 ]
 
 const WHOLESALE_TIERS = [
@@ -58,6 +37,117 @@ const WHOLESALE_TIERS = [
   { from: 'от 200 ед.', discount: '−10%', label: 'Партнёр' },
   { from: 'от 500 ед.', discount: '−18%', label: 'Дилер'   },
 ]
+
+/** Форма заявки на партнёрство с отправкой в Telegram */
+function PartnerForm() {
+  const { sendPartnership, sending, error } = useTelegram()
+
+  const [company, setCompany] = useState('')
+  const [phone,   setPhone]   = useState('')
+  const [volume,  setVolume]  = useState('')
+  const [comment, setComment] = useState('')
+  const [sent,    setSent]    = useState(false)
+
+  async function handleSubmit(e) {
+    e.preventDefault()
+    const ok = await sendPartnership({ company, phone, volume, comment })
+    if (ok) setSent(true)
+  }
+
+  if (sent) {
+    return (
+      <div className="flex flex-col items-center justify-center py-10 text-center gap-3">
+        <span className="text-4xl">✅</span>
+        <p className="font-display text-white text-lg">Заявка отправлена!</p>
+        <p className="text-stone-400 text-sm">Ответим в течение одного рабочего дня.</p>
+      </div>
+    )
+  }
+
+  return (
+    <form onSubmit={handleSubmit} className="space-y-5">
+      <div>
+        <label className="block text-xs text-stone-500 uppercase tracking-wide mb-2">
+          Имя / Компания *
+        </label>
+        <input
+          type="text" required
+          value={company} onChange={e => setCompany(e.target.value)}
+          placeholder="ООО «Ромашка» или Иван"
+          className="w-full bg-stone-950 border border-stone-700 text-white
+                     px-4 py-3 text-sm placeholder-stone-600
+                     focus:outline-none focus:border-primary-500 transition-colors"
+        />
+      </div>
+
+      <div>
+        <label className="block text-xs text-stone-500 uppercase tracking-wide mb-2">
+          Телефон *
+        </label>
+        <input
+          type="tel" required
+          value={phone} onChange={e => setPhone(e.target.value)}
+          placeholder="+7 (___) ___-__-__"
+          className="w-full bg-stone-950 border border-stone-700 text-white
+                     px-4 py-3 text-sm placeholder-stone-600
+                     focus:outline-none focus:border-primary-500 transition-colors"
+        />
+      </div>
+
+      <div>
+        <label className="block text-xs text-stone-500 uppercase tracking-wide mb-2">
+          Объём закупки (приблизительно)
+        </label>
+        <select
+          value={volume} onChange={e => setVolume(e.target.value)}
+          className="w-full bg-stone-950 border border-stone-700 text-white
+                     px-4 py-3 text-sm focus:outline-none focus:border-primary-500
+                     transition-colors cursor-pointer"
+        >
+          <option value="">Выберите объём</option>
+          <option>до 50 единиц</option>
+          <option>50 – 200 единиц</option>
+          <option>200 – 500 единиц</option>
+          <option>более 500 единиц</option>
+        </select>
+      </div>
+
+      <div>
+        <label className="block text-xs text-stone-500 uppercase tracking-wide mb-2">
+          Комментарий
+        </label>
+        <textarea
+          rows={3}
+          value={comment} onChange={e => setComment(e.target.value)}
+          placeholder="Какие позиции интересуют, регион доставки, сроки..."
+          className="w-full bg-stone-950 border border-stone-700 text-white
+                     px-4 py-3 text-sm placeholder-stone-600
+                     focus:outline-none focus:border-primary-500 transition-colors resize-none"
+        />
+      </div>
+
+      {error && (
+        <p className="text-xs text-red-400 bg-red-900/20 border border-red-800 px-3 py-2">
+          Ошибка: {error}. Проверьте настройки в <code>src/config/telegram.js</code>
+        </p>
+      )}
+
+      <button
+        type="submit"
+        disabled={sending}
+        className="w-full bg-primary-600 hover:bg-primary-700 text-white
+                   py-4 text-sm font-medium tracking-wide uppercase
+                   transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+      >
+        {sending ? 'Отправляем...' : 'Получить КП'}
+      </button>
+
+      <p className="text-xs text-stone-600 text-center leading-relaxed">
+        Ответим в течение одного рабочего дня
+      </p>
+    </form>
+  )
+}
 
 export default function Partner() {
   return (
@@ -138,8 +228,7 @@ export default function Partner() {
               <span>📍</span> {WORKSHOP_ADDRESS}
             </p>
 
-            {/* iframe Яндекс.Карты
-                Чтобы поменять точку: замените MAP_EMBED_URL вверху файла */}
+            {/* iframe Яндекс.Карты — замените MAP_EMBED_URL вверху файла */}
             <div className="relative overflow-hidden border border-stone-800" style={{ paddingBottom: '60%' }}>
               <iframe
                 src={MAP_EMBED_URL}
@@ -161,83 +250,7 @@ export default function Partner() {
             <p className="text-stone-400 text-sm mb-8">
               Опишите ваш запрос — мы подготовим индивидуальное коммерческое предложение.
             </p>
-
-            <form
-              className="space-y-5"
-              onSubmit={e => { e.preventDefault(); alert('Заявка отправлена! Мы свяжемся с вами.') }}
-            >
-              <div>
-                <label className="block text-xs text-stone-500 uppercase tracking-wide mb-2">
-                  Имя / Компания
-                </label>
-                <input
-                  type="text"
-                  required
-                  placeholder="ООО «Ромашка» или Иван"
-                  className="w-full bg-stone-950 border border-stone-700 text-white
-                             px-4 py-3 text-sm placeholder-stone-600
-                             focus:outline-none focus:border-primary-500 transition-colors"
-                />
-              </div>
-
-              <div>
-                <label className="block text-xs text-stone-500 uppercase tracking-wide mb-2">
-                  Телефон
-                </label>
-                <input
-                  type="tel"
-                  required
-                  placeholder="+7 (___) ___-__-__"
-                  className="w-full bg-stone-950 border border-stone-700 text-white
-                             px-4 py-3 text-sm placeholder-stone-600
-                             focus:outline-none focus:border-primary-500 transition-colors"
-                />
-              </div>
-
-              <div>
-                <label className="block text-xs text-stone-500 uppercase tracking-wide mb-2">
-                  Объём закупки (приблизительно)
-                </label>
-                <select
-                  className="w-full bg-stone-950 border border-stone-700 text-white
-                             px-4 py-3 text-sm focus:outline-none focus:border-primary-500
-                             transition-colors cursor-pointer"
-                >
-                  <option value="">Выберите объём</option>
-                  <option>до 50 единиц</option>
-                  <option>50 – 200 единиц</option>
-                  <option>200 – 500 единиц</option>
-                  <option>более 500 единиц</option>
-                </select>
-              </div>
-
-              <div>
-                <label className="block text-xs text-stone-500 uppercase tracking-wide mb-2">
-                  Комментарий
-                </label>
-                <textarea
-                  rows={3}
-                  placeholder="Какие позиции интересуют, регион доставки, сроки..."
-                  className="w-full bg-stone-950 border border-stone-700 text-white
-                             px-4 py-3 text-sm placeholder-stone-600
-                             focus:outline-none focus:border-primary-500 transition-colors
-                             resize-none"
-                />
-              </div>
-
-              <button
-                type="submit"
-                className="w-full bg-primary-600 hover:bg-primary-700 text-white
-                           py-4 text-sm font-medium tracking-wide uppercase
-                           transition-colors duration-200"
-              >
-                Получить КП
-              </button>
-
-              <p className="text-xs text-stone-600 text-center leading-relaxed">
-                Ответим в течение одного рабочего дня
-              </p>
-            </form>
+            <PartnerForm />
           </div>
 
         </div>
