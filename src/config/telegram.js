@@ -16,5 +16,5 @@
  * После заполнения пересоберите проект: npm run build
  */
 
-export const TELEGRAM_BOT_TOKEN = ''   // ← вставьте токен бота
-export const TELEGRAM_CHAT_ID   = ''   // ← вставьте chat_id менеджера
+export const TELEGRAM_BOT_TOKEN = '8640614614:AAHeyLi1YkP7H58f-_pnupCGZOeWmmEmPrI'   // ← вставьте токен бота
+export const TELEGRAM_CHAT_ID = '5199809190'   // ← вставьте chat_id менеджера
