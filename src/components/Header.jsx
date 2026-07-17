@@ -7,10 +7,10 @@ import { useCartContext } from '../context/CartContext'
 const NAV_LINKS = [
   { label: 'Каталог',         href: '#catalog'  },
   { label: 'Интерьеры',       href: '#gallery'  },
-  { label: 'О нас',           href: '#about'    },
   { label: 'Отзывы',          href: '#reviews'  },
-  { label: 'Стать партнёром', href: '#partner'  },
+    {/*{ label: 'Стать партнёром', href: '#partner'  },*/ }
   { label: 'Контакты',        href: '#contacts' },
+  { label: 'О нас',           href: '#about'    },
 ]
 
 export default function Header() {
