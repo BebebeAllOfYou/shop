@@ -1,12 +1,27 @@
 /**
- * useSheetsPrices — загружает актуальные данные из Google Таблицы через Apps Script.
+ * useSheetsPrices — загружает все данные товаров из Google Таблицы через Apps Script.
  *
  * Возвращает объект `productsMap` вида:
- *   { [productId]: { price: number, oldPrice: number | null, name: string | null } }
+ *   { [productId]: { name, price, oldPrice, description, badge, category, image, inStock, featured, wildberriesLink } }
  *
- * Логика кэширования:
- *   - При первом запросе данные сохраняются в localStorage
- *   - Повторный fetch происходит не чаще чем раз в PRICES_CACHE_TTL (5 мин)
+ * Правило мёржа: если ячейка в таблице ПУСТАЯ — поле берётся из локального products.json.
+ * Это позволяет менеджеру заполнять только то, что нужно изменить.
+ *
+ * Структура таблицы (первая строка — заголовки):
+ *   A: id
+ *   B: name
+ *   C: price
+ *   D: oldPrice
+ *   E: description
+ *   F: badge
+ *   G: category
+ *   H: image
+ *   I: inStock     (TRUE / FALSE)
+ *   J: featured    (TRUE / FALSE)
+ *   K: wildberriesLink
+ *
+ * Кэширование:
+ *   - Данные сохраняются в localStorage на PRICES_CACHE_TTL (5 мин)
  *   - Если Google API недоступен — возвращается пустой объект,
  *     и useProducts автоматически использует данные из локального JSON
  */
@@ -14,12 +29,10 @@
 import { useState, useEffect } from 'react'
 import { SHEETS_PRICES_URL, PRICES_CACHE_TTL } from '../config/catalog'
 
-const CACHE_KEY = 'furniture_sheets_prices_v2'
+// Версия кэша — увеличьте при изменении структуры таблицы
+const CACHE_KEY = 'furniture_sheets_v3'
 
-/**
- * Читает кэш из localStorage.
- * Возвращает данные, если кэш ещё актуален, иначе null.
- */
+/** Читает кэш. Возвращает данные если актуальны, иначе null. */
 function readCache() {
   try {
     const raw = localStorage.getItem(CACHE_KEY)
@@ -32,9 +45,7 @@ function readCache() {
   return null
 }
 
-/**
- * Сохраняет данные в localStorage с текущим временем.
- */
+/** Сохраняет данные в localStorage. */
 function writeCache(data) {
   try {
     localStorage.setItem(CACHE_KEY, JSON.stringify({ data, timestamp: Date.now() }))
@@ -44,7 +55,34 @@ function writeCache(data) {
 }
 
 /**
- * Преобразует массив из Google Sheets в удобный объект { id → данные товара }.
+ * Разбирает строку «TRUE»/«FALSE»/1/0 в boolean или null если ячейка пустая.
+ * null означает «не задано менеджером → использовать значение из JSON».
+ */
+function parseBool(val) {
+  if (val === '' || val === null || val === undefined) return null
+  if (typeof val === 'boolean') return val
+  const s = String(val).trim().toUpperCase()
+  if (s === 'TRUE'  || s === '1' || s === 'ДА')  return true
+  if (s === 'FALSE' || s === '0' || s === 'НЕТ') return false
+  return null
+}
+
+/** Пустая строка → null, иначе trimmed string. */
+function parseStr(val) {
+  if (val === '' || val === null || val === undefined) return null
+  return String(val).trim() || null
+}
+
+/** Пустая строка → null, иначе число. */
+function parseNum(val) {
+  if (val === '' || val === null || val === undefined) return null
+  const n = Number(val)
+  return isNaN(n) ? null : n
+}
+
+/**
+ * Преобразует массив строк из Apps Script в карту { id → поля товара }.
+ * Поля со значением null означают «не задано» — мёрж оставит значение из JSON.
  */
 function buildProductsMap(sheetsArray) {
   const map = {}
@@ -52,9 +90,16 @@ function buildProductsMap(sheetsArray) {
     const id = Number(item.id)
     if (!id) continue
     map[id] = {
-      price:    Number(item.price)    || 0,
-      oldPrice: item.oldPrice != null ? Number(item.oldPrice) : null,
-      name:     item.name?.trim()     || null,
+      name:             parseStr(item.name),
+      price:            parseNum(item.price),
+      oldPrice:         parseNum(item.oldPrice),
+      description:      parseStr(item.description),
+      badge:            parseStr(item.badge),
+      category:         parseStr(item.category),
+      image:            parseStr(item.image),
+      inStock:          parseBool(item.inStock),
+      featured:         parseBool(item.featured),
+      wildberriesLink:  parseStr(item.wildberriesLink),
     }
   }
   return map
@@ -65,13 +110,11 @@ export function useSheetsPrices() {
   const [loading,     setLoading]     = useState(!!SHEETS_PRICES_URL)
 
   useEffect(() => {
-    // Если URL не задан — модуль выключен, используем локальные данные
     if (!SHEETS_PRICES_URL) {
       setLoading(false)
       return
     }
 
-    // Проверяем кэш
     const cached = readCache()
     if (cached) {
       setProductsMap(cached)
@@ -79,7 +122,6 @@ export function useSheetsPrices() {
       return
     }
 
-    // Запрос к Google Apps Script
     let cancelled = false
 
     fetch(SHEETS_PRICES_URL)
@@ -99,7 +141,6 @@ export function useSheetsPrices() {
         console.warn('[useSheetsPrices] Не удалось загрузить данные из Google Таблицы:', err.message)
         console.warn('[useSheetsPrices] Используются данные из локального products.json')
         setLoading(false)
-        // productsMap остаётся пустым — useProducts использует локальные данные
       })
 
     return () => { cancelled = true }

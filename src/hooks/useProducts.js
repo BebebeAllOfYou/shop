@@ -32,21 +32,29 @@ export function useProducts() {
   const { productsMap, loading: loadingPrices } = useSheetsPrices()
 
   // Применяем данные из Google Sheets поверх локальных.
-  // Если товар не найден в productsMap — остаются данные из products.json.
+  // Правило: если поле в таблице пустое (null) — остаётся значение из products.json.
   // Товары без названия скрываются из каталога полностью.
   const allProducts = useMemo(() => {
     const base = productsData?.products ?? []
     const merged = !Object.keys(productsMap).length
       ? base
       : base.map(p => {
-          const fromSheets = productsMap[p.id]
-          if (!fromSheets) return p
+          const s = productsMap[p.id]   // s = данные из Sheets для этого товара
+          if (!s) return p
+
           return {
             ...p,
-            price:    fromSheets.price,
-            oldPrice: fromSheets.oldPrice,
-            // Имя обновляем только если менеджер его заполнил в таблице
-            ...(fromSheets.name ? { name: fromSheets.name } : {}),
+            // Каждое поле берётся из Sheets только если оно не null
+            ...(s.name            !== null ? { name:            s.name            } : {}),
+            ...(s.price           !== null ? { price:           s.price           } : {}),
+            ...(s.oldPrice        !== null ? { oldPrice:        s.oldPrice        } : {}),
+            ...(s.description     !== null ? { description:     s.description     } : {}),
+            ...(s.badge           !== null ? { badge:           s.badge           } : {}),
+            ...(s.category        !== null ? { category:        s.category        } : {}),
+            ...(s.image           !== null ? { image:           s.image           } : {}),
+            ...(s.inStock         !== null ? { inStock:         s.inStock         } : {}),
+            ...(s.featured        !== null ? { featured:        s.featured        } : {}),
+            ...(s.wildberriesLink !== null ? { wildberriesLink: s.wildberriesLink } : {}),
           }
         })
     // Скрываем позиции без названия (пустая строка или null/undefined)
