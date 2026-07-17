@@ -257,7 +257,7 @@
     },
     {
       "id": 18,
-      "name": "Вешалка УФ Чёрная (3 шт.)",
+      "name": null,
       "category": "Вешалки",
       "price": 5500,
       "oldPrice": 6200,
@@ -272,7 +272,7 @@
     },
     {
       "id": 19,
-      "name": "Вешалка УФ Белая (3 шт.)",
+      "name": null,
       "category": "Вешалки",
       "price": 5500,
       "oldPrice": null,
@@ -287,7 +287,7 @@
     },
     {
       "id": 20,
-      "name": "Панель УФ Чёрная (4 шт.)",
+      "name": null,
       "category": "Панели",
       "price": 4700,
       "oldPrice": null,
@@ -302,7 +302,7 @@
     },
     {
       "id": 21,
-      "name": "Панель УФ Белая (4 шт.)",
+      "name": null,
       "category": "Панели",
       "price": 4700,
       "oldPrice": null,
