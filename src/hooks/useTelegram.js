@@ -9,23 +9,31 @@
 import { useState, useCallback } from 'react'
 import { TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID } from '../config/telegram'
 
-const API_URL = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`
-
 async function sendToTelegram(text) {
   if (!TELEGRAM_BOT_TOKEN || !TELEGRAM_CHAT_ID) {
     console.warn('[useTelegram] Не заданы BOT_TOKEN или CHAT_ID в src/config/telegram.js')
-    throw new Error('Telegram не настроен')
+    throw new Error('Telegram не настроен — заполните src/config/telegram.js')
   }
 
-  const res = await fetch(API_URL, {
-    method:  'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body:    JSON.stringify({
-      chat_id:    TELEGRAM_CHAT_ID,
-      text,
-      parse_mode: 'HTML',
-    }),
-  })
+  // URL строится здесь (не на уровне модуля), чтобы всегда использовать актуальный токен
+  const apiUrl = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`
+
+  let res
+  try {
+    res = await fetch(apiUrl, {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body:    JSON.stringify({
+        chat_id:    TELEGRAM_CHAT_ID,
+        text,
+        parse_mode: 'HTML',
+      }),
+    })
+  } catch (networkErr) {
+    // fetch бросает TypeError при сетевой ошибке (нет интернета, CORS и т.д.)
+    console.error('[useTelegram] Сетевая ошибка:', networkErr)
+    throw new Error('Нет соединения с Telegram. Проверьте интернет и токен бота.')
+  }
 
   if (!res.ok) {
     const err = await res.json().catch(() => ({}))
