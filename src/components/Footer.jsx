@@ -1,11 +1,23 @@
-/**
- * Footer — подвал сайта
- */
+/** Footer — подвал сайта */
+
+import { Link } from 'react-router-dom'
 
 const FOOTER_NAV = {
-  'Каталог': ['Вешалки', 'Деревянные рейки', 'Панели'],
-  'Компания': ['О нас', 'Блог', 'Партнёрам'],
-  'Покупателям': ['FAQ'],
+  'Каталог':     [
+    { label: 'Все товары',       to: '/catalog'  },
+    { label: 'Вешалки',          to: '/catalog'  },
+    { label: 'Деревянные рейки', to: '/catalog'  },
+    { label: 'Панели',           to: '/catalog'  },
+  ],
+  'Компания':    [
+    { label: 'О нас',       to: '/about'   },
+    { label: 'Партнёрам',   to: '/partner' },
+    { label: 'Контакты',    to: '/contacts'},
+  ],
+  'Покупателям': [
+    { label: 'Отзывы', to: '/reviews' },
+    { label: 'FAQ',    to: '/contacts'},
+  ],
 }
 
 export default function Footer() {
@@ -19,9 +31,9 @@ export default function Footer() {
 
         {/* Лого + описание */}
         <div className="col-span-2 md:col-span-1 space-y-4">
-          <a href="/" className="font-display text-xl text-white tracking-tight block">
+          <Link to="/" className="font-display text-xl text-white tracking-tight block">
             Forma<span className="text-primary-500">.</span>
-          </a>
+          </Link>
           <p className="text-sm leading-relaxed">
             Мебель из натурального дерева для тех, кто ценит качество и стиль.
           </p>
@@ -45,11 +57,11 @@ export default function Footer() {
           <nav key={heading}>
             <p className="text-white text-sm font-medium mb-4">{heading}</p>
             <ul className="space-y-2.5">
-              {links.map(link => (
-                <li key={link}>
-                  <a href="#" className="text-sm hover:text-white transition-colors">
-                    {link}
-                  </a>
+              {links.map(({ label, to }) => (
+                <li key={label}>
+                  <Link to={to} className="text-sm hover:text-white transition-colors">
+                    {label}
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -63,8 +75,8 @@ export default function Footer() {
         <div className="container-site py-5 flex flex-col sm:flex-row justify-between gap-2 text-xs">
           <p>© {year} Forma. Все права защищены.</p>
           <div className="flex gap-6">
-            <a href="/privacy" className="hover:text-white transition-colors">Конфиденциальность</a>
-            <a href="/terms"   className="hover:text-white transition-colors">Условия</a>
+            <Link to="/privacy" className="hover:text-white transition-colors">Конфиденциальность</Link>
+            <Link to="/terms"   className="hover:text-white transition-colors">Условия</Link>
           </div>
         </div>
       </div>

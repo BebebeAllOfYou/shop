@@ -1,16 +1,18 @@
 /**
- * Header — навигация и логотип
+ * Header — навигация с React Router
+ * NavLink автоматически добавляет класс активного маршрута.
  */
 
+import { NavLink } from 'react-router-dom'
 import { useCartContext } from '../context/CartContext'
 
 const NAV_LINKS = [
-  { label: 'Каталог',   href: '#catalog'  },
-  { label: 'Интерьеры', href: '#gallery'  },
-  { label: 'О нас',     href: '#about'    },
-  { label: 'Отзывы',    href: '#reviews'  },
-  // { label: 'Стать партнёром', href: '#partner' },  ← раскомментируйте чтобы вернуть
-  { label: 'Контакты',  href: '#contacts' },
+  { label: 'Каталог',   to: '/catalog'  },
+  { label: 'Интерьеры', to: '/gallery'  },
+  { label: 'О нас',     to: '/about'    },
+  { label: 'Отзывы',    to: '/reviews'  },
+  // { label: 'Стать партнёром', to: '/partner' },  ← раскомментируйте чтобы показать
+  { label: 'Контакты',  to: '/contacts' },
 ]
 
 export default function Header() {
@@ -21,20 +23,25 @@ export default function Header() {
       <div className="container-site flex items-center justify-between h-16">
 
         {/* Логотип */}
-        <a href="/" className="font-display text-xl text-stone-900 tracking-tight">
+        <NavLink to="/" className="font-display text-xl text-stone-900 tracking-tight">
           Forma<span className="text-primary-600">.</span>
-        </a>
+        </NavLink>
 
         {/* Навигация (desktop) */}
         <nav className="hidden md:flex items-center gap-8">
-          {NAV_LINKS.map(({ label, href }) => (
-            <a
-              key={href}
-              href={href}
-              className="text-sm text-stone-600 hover:text-stone-900 transition-colors"
+          {NAV_LINKS.map(({ label, to }) => (
+            <NavLink
+              key={to}
+              to={to}
+              className={({ isActive }) => [
+                'text-sm transition-colors',
+                isActive
+                  ? 'text-stone-900 font-medium border-b-2 border-primary-600 pb-0.5'
+                  : 'text-stone-600 hover:text-stone-900',
+              ].join(' ')}
             >
               {label}
-            </a>
+            </NavLink>
           ))}
         </nav>
 
@@ -66,4 +73,3 @@ export default function Header() {
     </header>
   )
 }
-
