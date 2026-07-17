@@ -7,7 +7,7 @@
       "price": 2955,
       "oldPrice": 3500,
       "badge": "Новинка",
-      "image": "/images/products/Вешалка.png",
+      "image": "/images/products/Прямая рейка (МДФ 6 мм) (4 шт.).png",
       "description": "Стильная настенная вешалка из массива берёзы. Пять крючков, покрытие — воск.",
       "materials": ["Массив берёзы", "Металлические крючки"],
       "wildberriesLink": "https://www.wildberries.ru/catalog/766304919/detail.aspx",
@@ -52,11 +52,15 @@
       "price": 2100,
       "oldPrice": null,
       "badge": "Новинка",
-      "image": null,
+      "image": "/images/products/Прямая рейка (МДФ 6 мм) (6 шт.).png",
       "description": "Объёмная 3D-панель с рисунком волны. Создаёт выразительный акцент на стене.",
-      "materials": ["Гипс", "Акриловый грунт"],
+      "materials": [ "Гипс", "Акриловый грунт" ],
       "wildberriesLink": null,
-      "dimensions": { "width": 50, "depth": 3, "height": 50 },
+      "dimensions": {
+        "width": 50,
+        "depth": 3,
+        "height": 50
+      },
       "inStock": true,
       "featured": true
     },
