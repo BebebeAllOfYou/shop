@@ -11,7 +11,7 @@ const NAV_LINKS = [
   { label: 'Интерьеры', to: '/gallery'  },
   { label: 'О нас',     to: '/about'    },
   { label: 'Отзывы',    to: '/reviews'  },
-  { label: 'Стать партнёром', to: '/partner' },  //← раскомментируйте чтобы показать
+  //{ label: 'Стать партнёром', to: '/partner' },  //← раскомментируйте чтобы показать
   { label: 'Контакты',  to: '/contacts' },
 ]
 
