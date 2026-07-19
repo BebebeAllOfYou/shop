@@ -25,16 +25,17 @@ export default function Hero() {
 
         {/* Текст */}
         <div className="space-y-6">
-          <p className="section-label">Декоративные стеновые панели и вешалки</p>
+          <p className="section-label">Декоративные панели и вешалки</p>
 
           <h1 className="font-display text-5xl md:text-6xl lg:text-7xl text-stone-900 leading-[1.05]">
-            Пространство,<br />
-            <em className="text-primary-600 not-italic">созданное</em><br />
+            Эстетика стен,<br />
+            <em className="text-primary-600 not-italic">созданная</em><br />
             для вас
           </h1>
 
           <p className="text-stone-500 text-lg leading-relaxed max-w-md">
             Самоклеящиеся стеновые панели для быстрого и стильного обновления интерьера.
+            <br />
             Простой монтаж, высокое качество и современный дизайн.
           </p>
 

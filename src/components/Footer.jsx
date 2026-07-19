@@ -4,10 +4,10 @@ import { Link } from 'react-router-dom'
 
 const FOOTER_NAV = {
   'Каталог':     [
-    { label: 'Все товары',       to: '/catalog'  },
-    { label: 'Вешалки',          to: '/catalog'  },
-    { label: 'Деревянные рейки', to: '/catalog'  },
-    { label: 'Панели',           to: '/catalog'  },
+    { label: 'Все товары',            to: '/catalog'  },
+    { label: 'Вешалки в цвете',        to: '/catalog'  },
+    { label: 'Панели под покраску',    to: '/catalog'  },
+    { label: 'Панели в цвете',         to: '/catalog'  },
   ],
   'Компания':    [
     { label: 'О нас',       to: '/about'   },
@@ -32,10 +32,10 @@ export default function Footer() {
         {/* Лого + описание */}
         <div className="col-span-2 md:col-span-1 space-y-4">
           <Link to="/" className="font-display text-xl text-white tracking-tight block">
-            Forma<span className="text-primary-500">.</span>
+            СТЕПАН<span className="text-primary-500">.</span>
           </Link>
           <p className="text-sm leading-relaxed">
-            Мебель из натурального дерева для тех, кто ценит качество и стиль.
+            Декоративные панели и настенные вешалки для тех, кто ценит стиль и качество.
           </p>
           {/* Соцсети */}
           <div className="flex gap-3 pt-2">
