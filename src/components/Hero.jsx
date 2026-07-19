@@ -25,7 +25,7 @@ export default function Hero() {
 
         {/* Текст */}
         <div className="space-y-6">
-          <p className="section-label">Мебель ручной работы</p>
+          <p className="section-label">Декоративные стеновые панели и вешалки</p>
 
           <h1 className="font-display text-5xl md:text-6xl lg:text-7xl text-stone-900 leading-[1.05]">
             Пространство,<br />
@@ -34,8 +34,8 @@ export default function Hero() {
           </h1>
 
           <p className="text-stone-500 text-lg leading-relaxed max-w-md">
-            Мебель из натурального дерева, спроектированная с вниманием
-            к деталям и изготовленная мастерами с многолетним опытом.
+            Самоклеящиеся стеновые панели, разработанные для быстрого и стильного обновления интерьера.
+            Легко монтируются, надежно фиксируются на поверхности и подходят для оформления жилых и коммерческих пространств.
           </p>
 
           <div className="flex flex-wrap gap-4 pt-2">
