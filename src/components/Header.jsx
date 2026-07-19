@@ -24,7 +24,7 @@ export default function Header() {
 
         {/* Логотип */}
         <NavLink to="/" className="font-display text-xl text-stone-900 tracking-tight">
-          СТЕПАН<span className="text-primary-600">
+          СТЕПАН<span className="text-primary-600">.</span>
         </NavLink>
 
         {/* Навигация (desktop) */}
