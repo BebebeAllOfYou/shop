@@ -5,11 +5,11 @@
  */
 
 const GALLERY_ITEMS = [
-  { id: 1, title: 'Скандинавская гостиная',  style: 'Минимализм',   size: 'large',  image: '/images/gallery/interior-01.jpg' },
-  { id: 2, title: 'Кабинет в стиле лофт',    style: 'Лофт',         size: 'small',  image: '/images/gallery/interior-02.jpg' },
-  { id: 3, title: 'Спальня с подиумом',       style: 'Современный',  size: 'small',  image: '/images/gallery/interior-03.jpg' },
-  { id: 4, title: 'Кухня-гостиная open space', style: 'Эклектика',   size: 'medium', image: '/images/gallery/interior-04.jpg' },
-  { id: 5, title: 'Детская комната',           style: 'Скандинавский', size: 'medium', image: '/images/gallery/interior-05.jpg' },
+  { id: 1, title: 'Панель монолит "УЗОР"',     style: 'Эко-модерн',                  size: 'large',  image: '/images/gallery/interior-01.jpg' },
+  { id: 2, title: 'Косая рейка (МДФ 6 мм)',    style: 'Световой минимализм',         size: 'small',  image: '/images/gallery/interior-02.jpg' },
+  { id: 3, title: 'Кирпич (МДФ 6 мм)',         style: 'Мягкий лофт',                 size: 'small',  image: '/images/gallery/interior-03.jpg' },
+  { id: 4, title: 'Косая рейка (МДФ 6 мм)',    style: 'Геометрический минимализм',   size: 'medium', image: '/images/gallery/interior-04.jpg' },
+  { id: 5, title: 'Косая рейка (МДФ 6 мм)',    style: 'Современный ар-деко',         size: 'medium', image: '/images/gallery/interior-05.jpg' },
 ]
 
 function GalleryCard({ item, className = '' }) {
