@@ -6,6 +6,7 @@
  */
 
 import { useState } from 'react'
+import { Link }     from 'react-router-dom'
 import { useCartContext } from '../context/CartContext'
 import { useTelegram }    from '../hooks/useTelegram'
 
@@ -214,9 +215,9 @@ export default function CartPanel() {
                 <span className="text-5xl">🛒</span>
                 <p className="text-stone-500">Корзина пуста</p>
                 <p className="text-stone-400 text-sm">Добавьте товары из каталога</p>
-                <button onClick={handleClose} className="btn-outline text-xs mt-2">
+                <Link to="/catalog" onClick={handleClose} className="btn-outline text-xs mt-2">
                   Перейти в каталог
-                </button>
+                </Link>
               </div>
             ) : (
               <div className="py-2">
