@@ -11,7 +11,7 @@ const FOOTER_NAV = {
   ],
   'Компания':    [
     { label: 'О нас',       to: '/about'   },
-    { label: 'Партнёрам',   to: '/partner' },
+    //{ label: 'Партнёрам',   to: '/partner' },
     { label: 'Контакты',    to: '/contacts'},
   ],
   'Покупателям': [
@@ -73,7 +73,7 @@ export default function Footer() {
       {/* Нижняя строка */}
       <div className="border-t border-stone-800">
         <div className="container-site py-5 flex flex-col sm:flex-row justify-between gap-2 text-xs">
-          <p>© {year} Forma. Все права защищены.</p>
+          <p>© {year} СТЕПАН. Все права защищены.</p>
           <div className="flex gap-6">
             <Link to="/privacy" className="hover:text-white transition-colors">Конфиденциальность</Link>
             <Link to="/terms"   className="hover:text-white transition-colors">Условия</Link>
