@@ -8,7 +8,7 @@
 import { useState } from 'react'
 import { useCartContext } from '../context/CartContext'
 
-export default function ProductCard({ product = {} }) {
+export default function ProductCard({ product = {}, onCardClick }) {
   const {
     name      = 'Название товара',
     category  = 'Категория',
@@ -89,7 +89,7 @@ export default function ProductCard({ product = {} }) {
   return (
     <article className="group relative flex flex-col bg-white">
 
-      {/* Фото — кликабельно, если есть ссылка на Wildberries */}
+      {/* Фото — открывает модаль, если нет ссылки на Wildberries */}
       {wildberriesLink ? (
         <a
           href={wildberriesLink}
@@ -100,13 +100,19 @@ export default function ProductCard({ product = {} }) {
           {PhotoContent}
         </a>
       ) : (
-        <div className="relative aspect-[3/4] bg-stone-100 overflow-hidden">
+        <div
+          className="relative aspect-[3/4] bg-stone-100 overflow-hidden cursor-pointer"
+          onClick={onCardClick}
+        >
           {PhotoContent}
         </div>
       )}
 
-      {/* Инфо */}
-      <div className="pt-4 pb-2 flex flex-col gap-1">
+      {/* Инфо — тоже открывает модаль */}
+      <div
+        className="pt-4 pb-2 flex flex-col gap-1 cursor-pointer"
+        onClick={onCardClick}
+      >
         <p className="text-xs text-stone-400 tracking-wide uppercase">{category}</p>
         <h3 className="font-display text-stone-900 leading-snug">{name}</h3>
         <div className="flex items-baseline gap-2 mt-1">

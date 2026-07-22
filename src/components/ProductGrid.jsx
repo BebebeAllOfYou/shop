@@ -11,9 +11,10 @@
  *   3. В products.json укажите нужный category у товаров
  */
 
-import { useRef }      from 'react'
-import { useProducts } from '../hooks/useProducts'
-import ProductCard     from './ProductCard'
+import { useRef, useState } from 'react'
+import { useProducts }      from '../hooks/useProducts'
+import ProductCard          from './ProductCard'
+import ProductModal         from './ProductModal'
 
 const SORT_OPTIONS = [
   { value: 'default',    label: 'По умолчанию'   },
@@ -117,6 +118,8 @@ function CategoryCard({ cat, isActive, onClick }) {
 export default function ProductGrid() {
   const productsRef = useRef(null)
 
+  const [previewProduct, setPreviewProduct] = useState(null)
+
   const {
     products,
     categories,
@@ -208,6 +211,7 @@ export default function ProductGrid() {
                 <ProductCard
                   key={product.id}
                   product={product}
+                  onCardClick={() => setPreviewProduct(product)}
                 />
               ))
           }
@@ -241,6 +245,13 @@ export default function ProductGrid() {
         )}
 
       </div>
+
+      {/* Модальный предпросмотр товара */}
+      <ProductModal
+        product={previewProduct}
+        onClose={() => setPreviewProduct(null)}
+      />
+
     </section>
   )
 }

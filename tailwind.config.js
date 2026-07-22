@@ -27,6 +27,14 @@ export default {
         display: ['"Playfair Display"', 'Georgia', 'serif'],
         body: ['"Inter"', 'system-ui', 'sans-serif'],
       },
+      keyframes: {
+        fadeIn:  { from: { opacity: '0' },                    to: { opacity: '1' }                   },
+        slideUp: { from: { opacity: '0', transform: 'translateY(24px)' }, to: { opacity: '1', transform: 'translateY(0)' } },
+      },
+      animation: {
+        'fadeIn':  'fadeIn 0.2s ease',
+        'slideUp': 'slideUp 0.25s ease',
+      },
     },
   },
   plugins: [],
