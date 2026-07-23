@@ -1,0 +1,84 @@
+{
+  "gallery": [
+    {
+      "id": 1,
+      "title": "Панель монолит \"УЗОР\"",
+      "style": "Эко-модерн",
+      "size": "large",
+      "image": "/images/gallery/interior-01.jpg",
+      "productId": 12,
+      "productName": "Панель монолит \"УЗОР\" (4 шт.)",
+      "category": "Панели"
+    },
+    {
+      "id": 2,
+      "title": "Косая рейка (МДФ 6 мм)",
+      "style": "Световой минимализм",
+      "size": "small",
+      "image": "/images/gallery/interior-02.jpg",
+      "productId": 3,
+      "productName": "Косая рейка (МДФ 6 мм) (4 шт.)",
+      "category": "Деревянные рейки"
+    },
+    {
+      "id": 3,
+      "title": "Кирпич (МДФ 6 мм)",
+      "style": "Мягкий лофт",
+      "size": "small",
+      "image": "/images/gallery/interior-03.jpg",
+      "productId": 2,
+      "productName": "Кирпич (МДФ 6 мм) (4 шт.)",
+      "category": "Панели"
+    },
+    {
+      "id": 4,
+      "title": "Косая рейка (МДФ 6 мм)",
+      "style": "Геометрический минимализм",
+      "size": "medium",
+      "image": "/images/gallery/interior-04.jpg",
+      "productId": 3,
+      "productName": "Прямая рейка (МДФ 6 мм) (4 шт.)",
+      "category": "Деревянные рейки"
+    },
+    {
+      "id": 5,
+      "title": "Вешалка монолит \"Сонома\"",
+      "style": "Современный ар-деко",
+      "size": "medium",
+      "image": "/images/gallery/interior-05.jpg",
+      "productId": 7,
+      "productName": "Вешалка монолит \"Сонома\" (3 шт.)",
+      "category": "Вешалки"
+    },
+    {
+      "id": 6,
+      "title": "Панель монолит \"Сонома\"",
+      "style": "Скандинавский уют",
+      "size": "medium",
+      "image": "/images/gallery/interior-06.jpg",
+      "productId": 13,
+      "productName": "Панель монолит \"Сонома\" (4 шт.)",
+      "category": "Панели"
+    },
+    {
+      "id": 7,
+      "title": "Вешалка монолит \"Табак\"",
+      "style": "Теплый минимализм",
+      "size": "small",
+      "image": "/images/gallery/interior-07.jpg",
+      "productId": 8,
+      "productName": "Вешалка монолит \"Табак\" (3 шт.)",
+      "category": "Вешалки"
+    },
+    {
+      "id": 8,
+      "title": "Прямая рейка (МДФ 6 мм) 6 шт.",
+      "style": "Акцентная гостиная",
+      "size": "small",
+      "image": "/images/gallery/interior-08.jpg",
+      "productId": 4,
+      "productName": "Прямая рейка (МДФ 6 мм) (6 шт.)",
+      "category": "Деревянные рейки"
+    }
+  ]
+}

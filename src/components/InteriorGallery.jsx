@@ -1,18 +1,14 @@
 /**
  * InteriorGallery — галерея готовых интерьеров
- * Макет: одна большая карточка слева + 2 маленьких справа
- * TODO: добавить лайтбокс при клике на фото
+ * Данные загружаются динамически из /public/data/gallery.json через useGallery()
  */
 
-const GALLERY_ITEMS = [
-  { id: 1, title: 'Панель монолит "УЗОР"',     style: 'Эко-модерн',                  size: 'large',  image: '/images/gallery/interior-01.jpg' },
-  { id: 2, title: 'Косая рейка (МДФ 6 мм)',    style: 'Световой минимализм',         size: 'small',  image: '/images/gallery/interior-02.jpg' },
-  { id: 3, title: 'Кирпич (МДФ 6 мм)',         style: 'Мягкий лофт',                 size: 'small',  image: '/images/gallery/interior-03.jpg' },
-  { id: 4, title: 'Косая рейка (МДФ 6 мм)',    style: 'Геометрический минимализм',   size: 'medium', image: '/images/gallery/interior-04.jpg' },
-  { id: 5, title: 'Косая рейка (МДФ 6 мм)',    style: 'Современный ар-деко',         size: 'medium', image: '/images/gallery/interior-05.jpg' },
-]
+import { Link }       from 'react-router-dom'
+import { useGallery } from '../hooks/useGallery'
 
 function GalleryCard({ item, className = '' }) {
+  if (!item) return null
+
   return (
     <div className={`group relative bg-stone-100 overflow-hidden cursor-pointer ${className}`}>
       {/* Изображение интерьера */}
@@ -33,12 +29,19 @@ function GalleryCard({ item, className = '' }) {
       <div className="absolute bottom-0 left-0 right-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
         <p className="text-xs text-primary-300 tracking-wide uppercase">{item.style}</p>
         <p className="text-white font-display mt-0.5">{item.title}</p>
+        {item.productName && (
+          <p className="text-[11px] text-stone-300 opacity-90 mt-0.5">{item.productName}</p>
+        )}
       </div>
     </div>
   )
 }
 
 export default function InteriorGallery() {
+  const { gallery, loading } = useGallery()
+
+  const items = gallery.length > 0 ? gallery : []
+
   return (
     <section id="gallery" className="py-20 bg-stone-50">
       <div className="container-site">
@@ -54,20 +57,22 @@ export default function InteriorGallery() {
         </div>
 
         {/* Сетка — ассиметричный layout */}
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-4 h-[520px]">
-          {/* Большая карточка */}
-          <GalleryCard item={GALLERY_ITEMS[0]} className="row-span-2 col-span-1 md:col-span-1" />
+        {!loading && items.length >= 5 && (
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 h-[520px]">
+            {/* Большая карточка */}
+            <GalleryCard item={items[0]} className="row-span-2 col-span-1 md:col-span-1" />
 
-          {/* Малые */}
-          <GalleryCard item={GALLERY_ITEMS[1]} />
-          <GalleryCard item={GALLERY_ITEMS[2]} />
-          <GalleryCard item={GALLERY_ITEMS[3]} />
-          <GalleryCard item={GALLERY_ITEMS[4]} />
-        </div>
+            {/* Малые карточки */}
+            <GalleryCard item={items[1]} />
+            <GalleryCard item={items[2]} />
+            <GalleryCard item={items[3]} />
+            <GalleryCard item={items[4]} />
+          </div>
+        )}
 
         {/* Ссылка на все проекты */}
         <div className="mt-8 text-center">
-          <a href="/gallery" className="btn-outline">Все проекты</a>
+          <Link to="/gallery" className="btn-outline">Все проекты</Link>
         </div>
 
       </div>

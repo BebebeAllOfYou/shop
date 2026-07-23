@@ -9,27 +9,25 @@
  *   • Фото товара
  *   • Название, категория, цена
  *   • Описание и материалы
- *   • Мини-галерея интерьеров (первые 3 из GALLERY_ITEMS)
+ *   • Мини-галерея интерьеров (динамически фильтруется под открытый товар из gallery.json)
  *   • Кнопка «В корзину»
  */
 
 import { useEffect, useCallback } from 'react'
 import { useCartContext } from '../context/CartContext'
-
-// Интерьерные фото для блока «В интерьере»
-const GALLERY_ITEMS = [
-  { id: 1, image: '/images/gallery/interior-01.jpg', style: 'Эко-модерн'          },
-  { id: 2, image: '/images/gallery/interior-02.jpg', style: 'Световой минимализм' },
-  { id: 3, image: '/images/gallery/interior-03.jpg', style: 'Мягкий лофт'         },
-]
+import { useGallery }     from '../hooks/useGallery'
 
 const fmt = n => Number(n).toLocaleString('ru-RU')
 
 export default function ProductModal({ product, onClose }) {
-  const { addToCart, items } = useCartContext()
+  const { addToCart, items }      = useCartContext()
+  const { getInteriorsForProduct } = useGallery()
 
   const inCart = product ? items.some(i => i.id === product.id) : false
   const qty    = product ? (items.find(i => i.id === product.id)?.qty ?? 0) : 0
+
+  // Динамически получаем интерьеры именно для этого товара
+  const productInteriors = product ? getInteriorsForProduct(product, 3) : []
 
   // Закрытие по Escape
   const handleKey = useCallback((e) => {
@@ -165,36 +163,39 @@ export default function ProductModal({ product, onClose }) {
                 </div>
               )}
 
-              {/* Мини-галерея интерьеров */}
-              <div>
-                <p className="text-xs text-stone-400 uppercase tracking-wide mb-2">В интерьере</p>
-                <div className="grid grid-cols-3 gap-2">
-                  {GALLERY_ITEMS.map(item => (
-                    <div
-                      key={item.id}
-                      className="relative aspect-square bg-stone-100 overflow-hidden group"
-                    >
-                      {item.image ? (
-                        <img
-                          src={item.image}
-                          alt={item.style}
-                          className="absolute inset-0 w-full h-full object-cover
-                                     transition-transform duration-500 group-hover:scale-110"
-                        />
-                      ) : (
-                        <div className="absolute inset-0 flex items-center justify-center text-stone-300 text-xs">
-                          фото
-                        </div>
-                      )}
-                      <div className="absolute inset-0 bg-stone-900/0 group-hover:bg-stone-900/40 transition-colors" />
-                      <p className="absolute bottom-1.5 left-1.5 right-1.5 text-white text-[10px]
-                                    opacity-0 group-hover:opacity-100 transition-opacity leading-tight">
-                        {item.style}
-                      </p>
-                    </div>
-                  ))}
+              {/* Отфильтрованная мини-галерея интерьеров */}
+              {productInteriors.length > 0 && (
+                <div>
+                  <p className="text-xs text-stone-400 uppercase tracking-wide mb-2">В интерьере</p>
+                  <div className="grid grid-cols-3 gap-2">
+                    {productInteriors.map(item => (
+                      <div
+                        key={item.id}
+                        className="relative aspect-square bg-stone-100 overflow-hidden group cursor-pointer"
+                        title={item.title || item.style}
+                      >
+                        {item.image ? (
+                          <img
+                            src={item.image}
+                            alt={item.title || item.style}
+                            className="absolute inset-0 w-full h-full object-cover
+                                       transition-transform duration-500 group-hover:scale-110"
+                          />
+                        ) : (
+                          <div className="absolute inset-0 flex items-center justify-center text-stone-300 text-xs">
+                            фото
+                          </div>
+                        )}
+                        <div className="absolute inset-0 bg-stone-900/0 group-hover:bg-stone-900/40 transition-colors" />
+                        <p className="absolute bottom-1.5 left-1.5 right-1.5 text-white text-[10px]
+                                      opacity-0 group-hover:opacity-100 transition-opacity leading-tight truncate">
+                          {item.title || item.style}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-              </div>
+              )}
 
               {/* Кнопки действий */}
               <div className="mt-auto pt-2 flex flex-col gap-3">
