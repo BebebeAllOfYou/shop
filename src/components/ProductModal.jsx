@@ -1,5 +1,5 @@
 /**
- * ProductModal — модальный предпросмотр товара
+ * ProductModal — модальный предпросмотр товара с полноэкранной галереей интерьеров
  *
  * Props:
  *   product  — объект товара (null = закрыто)
@@ -9,30 +9,54 @@
  *   • Фото товара
  *   • Название, категория, цена
  *   • Описание и материалы
- *   • Мини-галерея интерьеров (динамически фильтруется под открытый товар из gallery.json)
+ *   • Мини-галерея интерьеров (динамически фильтруется под открытый товар)
+ *   • Полноэкранный Lightbox для просмотра интерьеров с листалкой и кнопкой закрытия (✕)
  *   • Кнопка «В корзину»
  */
 
-import { useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useCartContext } from '../context/CartContext'
 import { useGallery }     from '../hooks/useGallery'
 
 const fmt = n => Number(n).toLocaleString('ru-RU')
 
 export default function ProductModal({ product, onClose }) {
-  const { addToCart, items }      = useCartContext()
-  const { getInteriorsForProduct } = useGallery()
+  const { addToCart, items }       = useCartContext()
+  const { getInteriorsForProduct }  = useGallery()
+
+  // Индекс открытого фото в полноэкранном лайтбоксе (null = закрыт)
+  const [lightboxIndex, setLightboxIndex] = useState(null)
 
   const inCart = product ? items.some(i => i.id === product.id) : false
   const qty    = product ? (items.find(i => i.id === product.id)?.qty ?? 0) : 0
 
   // Динамически получаем интерьеры именно для этого товара
-  const productInteriors = product ? getInteriorsForProduct(product, 3) : []
+  const productInteriors = product ? getInteriorsForProduct(product, 6) : []
 
-  // Закрытие по Escape
+  // Сброс лайтбокса при смене товара
+  useEffect(() => {
+    setLightboxIndex(null)
+  }, [product])
+
+  // Навигация по лайтбоксу
+  const prevLightboxImage = useCallback(() => {
+    setLightboxIndex(curr => (curr > 0 ? curr - 1 : productInteriors.length - 1))
+  }, [productInteriors.length])
+
+  const nextLightboxImage = useCallback(() => {
+    setLightboxIndex(curr => (curr < productInteriors.length - 1 ? curr + 1 : 0))
+  }, [productInteriors.length])
+
+  // Закрытие и навигация по клавишам (Escape, ←, →)
   const handleKey = useCallback((e) => {
-    if (e.key === 'Escape') onClose()
-  }, [onClose])
+    if (lightboxIndex !== null) {
+      if (e.key === 'Escape')     setLightboxIndex(null)
+      if (e.key === 'ArrowLeft')  prevLightboxImage()
+      if (e.key === 'ArrowRight') nextLightboxImage()
+    } else {
+      if (e.key === 'Escape') onClose()
+    }
+  }, [lightboxIndex, onClose, prevLightboxImage, nextLightboxImage])
 
   useEffect(() => {
     if (!product) return
@@ -63,16 +87,18 @@ export default function ProductModal({ product, onClose }) {
     addToCart(product)
   }
 
+  const currentInterior = lightboxIndex !== null ? productInteriors[lightboxIndex] : null
+
   return (
     <>
-      {/* Оверлей */}
+      {/* ── Основной оверлей предпросмотра товара ── */}
       <div
         onClick={onClose}
         className="fixed inset-0 z-50 bg-stone-950/60 backdrop-blur-sm
                    animate-[fadeIn_0.2s_ease]"
       />
 
-      {/* Само модальное окно */}
+      {/* ── Модальное окно товара ── */}
       <div
         role="dialog"
         aria-modal="true"
@@ -85,18 +111,18 @@ export default function ProductModal({ product, onClose }) {
                      animate-[slideUp_0.25s_ease]"
           onClick={e => e.stopPropagation()}
         >
-          {/* Кнопка закрытия */}
+          {/* Кнопка закрытия окна предпросмотра */}
           <button
             onClick={onClose}
             className="absolute top-4 right-4 z-10 w-9 h-9 flex items-center justify-center
                        text-stone-400 hover:text-stone-900 hover:bg-stone-100
                        transition-colors text-2xl leading-none"
-            aria-label="Закрыть"
+            aria-label="Закрыть предпросмотр"
           >×</button>
 
           <div className="grid md:grid-cols-2 gap-0">
 
-            {/* ── Левая колонка: фото ── */}
+            {/* Левая колонка: Главное фото товара */}
             <div className="relative bg-stone-100 aspect-[3/4] md:aspect-auto md:min-h-[480px] overflow-hidden">
               {image ? (
                 <img
@@ -121,7 +147,7 @@ export default function ProductModal({ product, onClose }) {
               )}
             </div>
 
-            {/* ── Правая колонка: инфо ── */}
+            {/* Правая колонка: Инфо и Галерея */}
             <div className="flex flex-col p-7 gap-6">
 
               {/* Название + категория */}
@@ -163,16 +189,20 @@ export default function ProductModal({ product, onClose }) {
                 </div>
               )}
 
-              {/* Отфильтрованная мини-галерея интерьеров */}
+              {/* Мини-галерея интерьеров */}
               {productInteriors.length > 0 && (
                 <div>
-                  <p className="text-xs text-stone-400 uppercase tracking-wide mb-2">В интерьере</p>
+                  <div className="flex justify-between items-center mb-2">
+                    <p className="text-xs text-stone-400 uppercase tracking-wide">В интерьере</p>
+                    <span className="text-[11px] text-stone-400">Нажмите для профайла</span>
+                  </div>
                   <div className="grid grid-cols-3 gap-2">
-                    {productInteriors.map(item => (
+                    {productInteriors.map((item, idx) => (
                       <div
                         key={item.id}
-                        className="relative aspect-square bg-stone-100 overflow-hidden group cursor-pointer"
-                        title={item.title || item.style}
+                        onClick={() => setLightboxIndex(idx)}
+                        className="relative aspect-square bg-stone-100 overflow-hidden group cursor-pointer border border-transparent hover:border-primary-500 transition-all"
+                        title="Открыть на весь экран"
                       >
                         {item.image ? (
                           <img
@@ -186,11 +216,11 @@ export default function ProductModal({ product, onClose }) {
                             фото
                           </div>
                         )}
-                        <div className="absolute inset-0 bg-stone-900/0 group-hover:bg-stone-900/40 transition-colors" />
-                        <p className="absolute bottom-1.5 left-1.5 right-1.5 text-white text-[10px]
-                                      opacity-0 group-hover:opacity-100 transition-opacity leading-tight truncate">
-                          {item.title || item.style}
-                        </p>
+                        <div className="absolute inset-0 bg-stone-900/0 group-hover:bg-stone-900/40 transition-colors flex items-center justify-center">
+                          <span className="text-white text-xs opacity-0 group-hover:opacity-100 transition-opacity font-medium bg-stone-950/60 px-2 py-1 rounded">
+                            🔍 Увеличить
+                          </span>
+                        </div>
                       </div>
                     ))}
                   </div>
@@ -224,6 +254,92 @@ export default function ProductModal({ product, onClose }) {
           </div>
         </div>
       </div>
+
+      {/* ── 🔍 ПОЛНОЭКРАННЫЙ ЛАЙТБОКС (ГАЛЕРЕЯ НА ВЕСЬ ЭКРАН) ── */}
+      {lightboxIndex !== null && currentInterior && (
+        <div
+          className="fixed inset-0 z-[60] bg-stone-950/95 backdrop-blur-md flex flex-col items-center justify-between p-4 md:p-8 animate-[fadeIn_0.2s_ease]"
+          onClick={() => setLightboxIndex(null)}
+        >
+          {/* Верхняя панель: заголовок, счётчик и кнопка закрытия ✕ */}
+          <div
+            className="w-full max-w-5xl flex items-center justify-between text-white z-10"
+            onClick={e => e.stopPropagation()}
+          >
+            <div>
+              <p className="text-xs text-primary-400 uppercase tracking-widest font-medium">
+                {currentInterior.style || 'Интерьер'}
+              </p>
+              <h3 className="font-display text-lg md:text-xl text-white">
+                {currentInterior.title || name}
+              </h3>
+            </div>
+
+            <div className="flex items-center gap-6">
+              {/* Счётчик */}
+              <span className="text-xs text-stone-400 tracking-wider">
+                {lightboxIndex + 1} / {productInteriors.length}
+              </span>
+
+              {/* Кнопка закрытия (крестик) */}
+              <button
+                onClick={() => setLightboxIndex(null)}
+                className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center text-2xl transition-colors"
+                aria-label="Закрыть галерею и вернуться к товару"
+                title="Закрыть просмотр (Escape)"
+              >
+                ✕
+              </button>
+            </div>
+          </div>
+
+          {/* Центральный блок: Изображение интерьера + Стрелки навигации */}
+          <div
+            className="relative flex-1 w-full max-w-5xl flex items-center justify-center my-4 overflow-hidden"
+            onClick={e => e.stopPropagation()}
+          >
+            {/* Кнопка НАЗАД (стрелка влево) */}
+            {productInteriors.length > 1 && (
+              <button
+                onClick={prevLightboxImage}
+                className="absolute left-2 md:left-4 z-20 w-12 h-12 rounded-full bg-stone-900/60 hover:bg-stone-900 text-white flex items-center justify-center text-xl backdrop-blur-sm transition-all hover:scale-105"
+                aria-label="Предыдущее фото"
+                title="Предыдущее фото (Клавиша ←)"
+              >
+                ←
+              </button>
+            )}
+
+            {/* Главное полноэкранное фото */}
+            {currentInterior.image ? (
+              <img
+                src={currentInterior.image}
+                alt={currentInterior.title || name}
+                className="max-h-[75vh] max-w-full object-contain shadow-2xl rounded-sm transition-all duration-300"
+              />
+            ) : (
+              <div className="text-stone-400 text-sm">Фото отсутствует</div>
+            )}
+
+            {/* Кнопка ВПЕРЕД (стрелка вправо) */}
+            {productInteriors.length > 1 && (
+              <button
+                onClick={nextLightboxImage}
+                className="absolute right-2 md:right-4 z-20 w-12 h-12 rounded-full bg-stone-900/60 hover:bg-stone-900 text-white flex items-center justify-center text-xl backdrop-blur-sm transition-all hover:scale-105"
+                aria-label="Следующее фото"
+                title="Следующее фото (Клавиша →)"
+              >
+                →
+              </button>
+            )}
+          </div>
+
+          {/* Нижняя подсказка */}
+          <div className="text-center text-xs text-stone-400 z-10">
+            Используйте стрелки <kbd className="bg-stone-800 px-1.5 py-0.5 rounded text-stone-300">←</kbd> <kbd className="bg-stone-800 px-1.5 py-0.5 rounded text-stone-300">→</kbd> для листания или нажмите <kbd className="bg-stone-800 px-1.5 py-0.5 rounded text-stone-300">Esc</kbd> чтобы вернуться к товару
+          </div>
+        </div>
+      )}
     </>
   )
 }
