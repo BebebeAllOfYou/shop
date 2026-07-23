@@ -16,7 +16,6 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { CartProvider }  from './context/CartContext'
 import Header            from './components/Header'
 import Footer            from './components/Footer'
-import CartPanel         from './components/CartPanel'
 import HomePage          from './pages/HomePage'
 import CatalogPage       from './pages/CatalogPage'
 import GalleryPage       from './pages/GalleryPage'
@@ -42,8 +41,6 @@ export default function App() {
           <Route path="*"         element={<NotFoundPage />} />
         </Routes>
         <Footer />
-        {/* Выдвижная панель корзины — глобальная, поверх всего */}
-        <CartPanel />
       </CartProvider>
     </BrowserRouter>
   )
