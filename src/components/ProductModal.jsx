@@ -297,7 +297,7 @@ export default function ProductModal({ product, onClose }) {
               <img
                 src={currentInterior.image}
                 alt={currentInterior.title || name}
-                className="max-h-[75vh] max-w-full object-contain shadow-2xl rounded-sm transition-all duration-300"
+                className="max-h-[88vh] max-w-full object-contain shadow-2xl rounded-sm transition-all duration-300"
               />
             ) : (
               <div className="text-stone-400 text-sm">Фото отсутствует</div>
@@ -314,11 +314,6 @@ export default function ProductModal({ product, onClose }) {
                 →
               </button>
             )}
-          </div>
-
-          {/* Нижняя подсказка */}
-          <div className="text-center text-xs text-stone-400 z-10">
-            Используйте стрелки <kbd className="bg-stone-800 px-1.5 py-0.5 rounded text-stone-300">←</kbd> <kbd className="bg-stone-800 px-1.5 py-0.5 rounded text-stone-300">→</kbd> для листания или нажмите <kbd className="bg-stone-800 px-1.5 py-0.5 rounded text-stone-300">Esc</kbd> чтобы вернуться к товару
           </div>
         </div>
       )}

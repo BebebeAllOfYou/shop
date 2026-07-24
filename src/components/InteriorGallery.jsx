@@ -338,7 +338,7 @@ export default function InteriorGallery({ limit }) {
             <img
               src={activeLightboxItem.image}
               alt={activeLightboxItem.title}
-              className="max-h-[80vh] max-w-full object-contain shadow-2xl rounded-lg"
+              className="max-h-[88vh] max-w-full object-contain shadow-2xl rounded-lg"
             />
 
             {displayItems.length > 1 && (
@@ -350,11 +350,6 @@ export default function InteriorGallery({ limit }) {
                 →
               </button>
             )}
-          </div>
-
-          {/* Подсказка */}
-          <div className="text-center text-xs text-stone-400 z-10">
-            Используйте <kbd className="bg-stone-800 px-1.5 py-0.5 rounded text-stone-300">←</kbd> <kbd className="bg-stone-800 px-1.5 py-0.5 rounded text-stone-300">→</kbd> для навигации или <kbd className="bg-stone-800 px-1.5 py-0.5 rounded text-stone-300">Esc</kbd> для закрытия
           </div>
         </div>
       )}
