@@ -2,19 +2,18 @@
  * useGallery — загрузка интерьеров из /public/data/gallery.json
  *
  * Предоставляет:
- *   - gallery: полный список всех интерьеров
+ *   - gallery: список всех интерьеров с действительным image
  *   - getInteriorsForProduct(product, limit = 3): возвращает интерьеры, привязанные к конкретному товару.
- *     Логика фильтрации:
- *       1. По прямому совпадению productId или productName
- *       2. По совпадению категории товара (если нет прямого совпадения)
- *       3. Заполнение общими интерьерами (если найденных меньше лимита)
  */
 
 import { useFetch } from './useFetch'
 
 export function useGallery() {
   const { data, loading, error } = useFetch('/data/gallery.json')
-  const gallery = data?.gallery ?? []
+  const rawGallery = data?.gallery ?? []
+
+  // Гарантированно берем только интерьеры, у которых указан путь к изображению
+  const gallery = rawGallery.filter(item => item && item.image && String(item.image).trim() !== '')
 
   /**
    * Возвращает отфильтрованные интерьеры для конкретного товара
