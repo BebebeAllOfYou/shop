@@ -202,7 +202,7 @@ export default function ProductModal({ product, onClose }) {
                         {item.image ? (
                           <img
                             src={item.image}
-                            alt={item.title || item.style}
+                            alt={item.title || item.category || name}
                             className="absolute inset-0 w-full h-full object-cover
                                        transition-transform duration-500 group-hover:scale-110"
                           />
@@ -250,7 +250,7 @@ export default function ProductModal({ product, onClose }) {
           >
             <div>
               <p className="text-xs text-primary-400 uppercase tracking-widest font-medium">
-                {currentInterior.style || 'Интерьер'}
+                {currentInterior.category || 'Интерьер'}
               </p>
               <h3 className="font-display text-lg md:text-xl text-white">
                 {currentInterior.title || name}

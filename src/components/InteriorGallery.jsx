@@ -19,7 +19,7 @@ function GalleryCard({ item, onClick }) {
       {item.image ? (
         <img
           src={item.image}
-          alt={item.title || item.style}
+          alt={item.title || item.category}
           className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
           loading="lazy"
         />
@@ -42,7 +42,7 @@ function GalleryCard({ item, onClick }) {
       {/* Информация о проекте */}
       <div className="absolute bottom-0 left-0 right-0 p-5 transform transition-transform duration-300">
         <span className="inline-block px-2.5 py-0.5 text-[10px] uppercase font-semibold tracking-wider bg-primary-600/90 text-white rounded mb-1.5 shadow-sm">
-          {item.style || 'Интерьер'}
+          {item.category || 'Интерьер'}
         </span>
         <h3 className="text-white font-display text-base md:text-lg leading-snug drop-shadow-sm">{item.title}</h3>
         {item.productName && (
@@ -263,7 +263,7 @@ export default function InteriorGallery({ limit }) {
           >
             <div>
               <span className="text-xs text-primary-400 uppercase tracking-widest font-semibold">
-                {activeLightboxItem.style || 'Интерьер'}
+                {activeLightboxItem.category || 'Интерьер'}
               </span>
               <h3 className="font-display text-xl md:text-2xl text-white mt-0.5">
                 {activeLightboxItem.title}
