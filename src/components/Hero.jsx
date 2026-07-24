@@ -61,7 +61,7 @@ export default function Hero() {
         <div className="relative aspect-[4/5] bg-stone-200 rounded-2xl overflow-hidden shadow-2xl group border border-stone-200/60">
           <img
             src="/images/home/hero.jpg"
-            alt="Стеновые панели Forma в интерьере"
+            alt="Стеновые панели СТЕПАН в интерьере"
             className="w-full h-full object-cover object-center transform transition-transform duration-700 group-hover:scale-105"
             loading="eager"
           />

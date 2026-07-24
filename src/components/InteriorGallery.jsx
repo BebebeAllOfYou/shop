@@ -4,8 +4,10 @@
  */
 
 import { useState, useMemo, useEffect, useCallback } from 'react'
-import { Link, useLocation } from 'react-router-dom'
-import { useGallery } from '../hooks/useGallery'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { useGallery }  from '../hooks/useGallery'
+import { useProducts } from '../hooks/useProducts'
+import ProductModal    from './ProductModal'
 
 function GalleryCard({ item, onClick }) {
   if (!item) return null
@@ -58,7 +60,9 @@ function GalleryCard({ item, onClick }) {
 
 export default function InteriorGallery({ limit }) {
   const { gallery, loading } = useGallery()
+  const { getProductById }    = useProducts()
   const location = useLocation()
+  const navigate = useNavigate()
 
   // Состояние фильтра категории
   const [selectedCategory, setSelectedCategory] = useState('Все')
@@ -66,6 +70,8 @@ export default function InteriorGallery({ limit }) {
   const [lightboxIndex, setLightboxIndex] = useState(null)
   // Отображать ли все элементы, если установлен лимит
   const [showAllOverride, setShowAllOverride] = useState(false)
+  // Модальное окно товара при переходе из лайтбокса
+  const [selectedProductModal, setSelectedProductModal] = useState(null)
 
   // Фильтрация интерьеров: только имеющие непустое изображение
   const validGallery = useMemo(() => {
@@ -91,6 +97,18 @@ export default function InteriorGallery({ limit }) {
     }
     return filteredGallery
   }, [filteredGallery, limit, showAllOverride, selectedCategory])
+
+  // Обработчик перехода к карточке товара по productId
+  const handleProductClick = (productId) => {
+    setLightboxIndex(null) // Закрываем полноэкранный просмотр интерьера
+    const product = getProductById ? getProductById(productId) : null
+
+    if (product) {
+      setSelectedProductModal(product)
+    } else {
+      navigate(`/catalog?product=${productId}`)
+    }
+  }
 
   // Обработчик нажатия на «Все проекты»
   const handleAllProjectsClick = () => {
@@ -268,8 +286,22 @@ export default function InteriorGallery({ limit }) {
               <h3 className="font-display text-xl md:text-2xl text-white mt-0.5">
                 {activeLightboxItem.title}
               </h3>
-              {activeLightboxItem.productName && (
-                <p className="text-xs text-stone-400 mt-1">Товар: {activeLightboxItem.productName}</p>
+
+              {/* Кликабельное название товара для перехода по productId */}
+              {activeLightboxItem.productName && activeLightboxItem.productId && (
+                <div className="mt-2">
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      handleProductClick(activeLightboxItem.productId)
+                    }}
+                    className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-primary-600 hover:bg-primary-500 text-white rounded-lg text-xs md:text-sm font-medium transition-all shadow-md group cursor-pointer border border-primary-400/40 hover:scale-105 active:scale-95"
+                    title={`Перейти к карточке товара (ID: ${activeLightboxItem.productId})`}
+                  >
+                    <span>🛍️ Товар: <span className="underline underline-offset-2 font-semibold">{activeLightboxItem.productName}</span></span>
+                    <span className="text-white/80 group-hover:translate-x-1 transition-transform">→</span>
+                  </button>
+                </div>
               )}
             </div>
 
@@ -326,6 +358,15 @@ export default function InteriorGallery({ limit }) {
           </div>
         </div>
       )}
+
+      {/* Модальное окно товара при клике на название из полноэкранного режима */}
+      {selectedProductModal && (
+        <ProductModal
+          product={selectedProductModal}
+          onClose={() => setSelectedProductModal(null)}
+        />
+      )}
+
     </section>
   )
 }

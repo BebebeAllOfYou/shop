@@ -11,7 +11,8 @@
  *   3. В products.json укажите нужный category у товаров
  */
 
-import { useRef, useState } from 'react'
+import { useRef, useState, useEffect } from 'react'
+import { useSearchParams } from 'react-router-dom'
 import { useProducts }      from '../hooks/useProducts'
 import ProductCard          from './ProductCard'
 import ProductModal         from './ProductModal'
@@ -116,12 +117,15 @@ function CategoryCard({ cat, isActive, onClick }) {
 }
 
 export default function ProductGrid() {
+  const [searchParams, setSearchParams] = useSearchParams()
   const productsRef = useRef(null)
 
   const [previewProduct, setPreviewProduct] = useState(null)
 
   const {
     products,
+    allProducts,
+    getProductById,
     categories,
     loading,
     error,
@@ -133,6 +137,26 @@ export default function ProductGrid() {
     hasMore,
     totalFiltered,
   } = useProducts()
+
+  // Автоматическое открытие товара при наличии ?product=ID в URL
+  useEffect(() => {
+    const productIdParam = searchParams.get('product')
+    if (productIdParam && getProductById) {
+      const found = getProductById(productIdParam)
+      if (found) {
+        setPreviewProduct(found)
+      }
+    }
+  }, [searchParams, getProductById])
+
+  const handleCloseModal = () => {
+    setPreviewProduct(null)
+    if (searchParams.has('product')) {
+      const newParams = new URLSearchParams(searchParams)
+      newParams.delete('product')
+      setSearchParams(newParams, { replace: true })
+    }
+  }
 
   function handleCategoryClick(catId) {
     setActiveCategory(catId)
@@ -249,7 +273,7 @@ export default function ProductGrid() {
       {/* Модальный предпросмотр товара */}
       <ProductModal
         product={previewProduct}
-        onClose={() => setPreviewProduct(null)}
+        onClose={handleCloseModal}
       />
 
     </section>

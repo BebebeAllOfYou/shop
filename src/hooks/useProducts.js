@@ -98,8 +98,15 @@ export function useProducts() {
   const handleSetCategory = (cat) => { setActiveCategory(cat); setVisibleCount(PAGE_SIZE) }
   const handleSetSort     = (s)   => { setSort(s);             setVisibleCount(PAGE_SIZE) }
 
+  const getProductById = (id) => {
+    if (!id) return null
+    return allProducts.find(p => String(p.id) === String(id)) || null
+  }
+
   return {
     products,
+    allProducts,
+    getProductById,
     categories,
     loading: loadingP || loadingPrices,
     error:   errorP,

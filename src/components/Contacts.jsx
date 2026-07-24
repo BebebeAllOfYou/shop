@@ -28,8 +28,7 @@ export default function Contacts() {
             <p className="section-label mb-2">Контакты</p>
             <h2 className="section-title mb-6">Свяжитесь с нами</h2>
             <p className="text-stone-500 leading-relaxed mb-10">
-              Расскажите о вашем проекте — мы поможем подобрать мебель под
-              интерьер, просчитаем стоимость и согласуем сроки.
+              Расскажите о вашем проекте!
             </p>
 
             <div className="space-y-8">
