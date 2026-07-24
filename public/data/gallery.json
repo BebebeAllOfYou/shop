@@ -7,8 +7,8 @@
       "size": "large",
       "image": "/images/gallery/interior-01.jpg",
       "productId": 12,
-      "productName": "Панель монолит \"УЗОР\" (4 шт.)",
-      "category": "Панели"
+      "productName": "Панель монолит \"УЗОР\"",
+      "category": "Панели под покраску"
     },
     {
       "id": 2,
@@ -18,7 +18,7 @@
       "image": "/images/gallery/interior-02.jpg",
       "productId": 3,
       "productName": "Косая рейка (МДФ 6 мм) (4 шт.)",
-      "category": "Деревянные рейки"
+      "category": "Панели под покраску"
     },
     {
       "id": 3,
@@ -27,108 +27,108 @@
       "size": "small",
       "image": "/images/gallery/interior-03.jpg",
       "productId": 2,
-      "productName": "Кирпич (МДФ 6 мм) (4 шт.)",
-      "category": "Панели"
+      "productName": "Кирпич (МДФ 6 мм)",
+      "category": "Панели под покраску"
     },
     {
       "id": 4,
-      "title": "Прямая рейка (МДФ 6 мм)",
+      "title": "Косая рейка (МДФ 6 мм)",
       "style": "Геометрический минимализм",
       "size": "medium",
       "image": "/images/gallery/interior-04.jpg",
       "productId": 1,
-      "productName": "Прямая рейка (МДФ 6 мм) (4 шт.)",
-      "category": "Деревянные рейки"
+      "productName": "Косая рейка (МДФ 6 мм)",
+      "category": "Панели под покраску"
     },
     {
       "id": 5,
-      "title": "Вешалка монолит \"Сонома\"",
+      "title": "Косая рейка (МДФ 6 мм)",
       "style": "Современный ар-деко",
       "size": "medium",
       "image": "/images/gallery/interior-05.jpg",
-      "productId": 7,
-      "productName": "Вешалка монолит \"Сонома\" (3 шт.)",
-      "category": "Вешалки"
+      "productId": 4,
+      "productName": "Косая рейка (МДФ 6 мм)",
+      "category": "Панели под покраску"
     },
     {
       "id": 6,
-      "title": "Панель монолит \"Сонома\"",
+      "title": "Косая рейка (МДФ 6 мм)",
       "style": "Скандинавский уют",
       "size": "medium",
       "image": "/images/gallery/interior-06.jpg",
-      "productId": 13,
-      "productName": "Панель монолит \"Сонома\" (4 шт.)",
-      "category": "Панели"
+      "productId": 1,
+      "productName": "Косая рейка (МДФ 6 мм)",
+      "category": "Панели под покраску"
     },
     {
       "id": 7,
-      "title": "Вешалка монолит \"Табак\"",
+      "title": "Прямая рейка (МДФ 6 мм)",
       "style": "Теплый минимализм",
       "size": "small",
       "image": "/images/gallery/interior-07.jpg",
-      "productId": 8,
-      "productName": "Вешалка монолит \"Табак\" (3 шт.)",
-      "category": "Вешалки"
+      "productId": 4,
+      "productName": "Прямая рейка (МДФ 6 мм)",
+      "category": "Панели под покраску"
     },
     {
       "id": 8,
-      "title": "Прямая рейка (МДФ 6 мм) 6 шт.",
+      "title": "Косая рейка (МДФ 6 мм) ",
       "style": "Акцентная гостиная",
       "size": "small",
       "image": "/images/gallery/interior-08.jpg",
-      "productId": 4,
-      "productName": "Прямая рейка (МДФ 6 мм) (6 шт.)",
-      "category": "Деревянные рейки"
+      "productId": 6,
+      "productName": "Косая рейка (МДФ 6 мм) ",
+      "category": "Панели под покраску"
     },
     {
       "id": 9,
-      "title": "Кирпич (МДФ 6 мм) 6 шт.",
+      "title": "Панель монолит \"Табак\"",
       "style": "Индустриальный лофт",
       "size": "medium",
       "image": "/images/gallery/interior-09.jpg",
-      "productId": 5,
-      "productName": "Кирпич (МДФ 6 мм) (6 шт.)",
-      "category": "Панели"
+      "productId": 14,
+      "productName": "Панель монолит \"Табак\"",
+      "category": "Панели Монолит в цвете"
     },
     {
       "id": 10,
-      "title": "Косая рейка (МДФ 6 мм) 6 шт.",
+      "title": "Прямая рейка (МДФ 6 мм)",
       "style": "Динамичный арт",
       "size": "small",
       "image": "/images/gallery/interior-10.jpg",
-      "productId": 6,
-      "productName": "Косая рейка (МДФ 6 мм) (6 шт.)",
-      "category": "Деревянные рейки"
+      "productId": 4,
+      "productName": "Прямая рейка (МДФ 6 мм)",
+      "category": "Панели под покраску"
     },
     {
       "id": 11,
-      "title": "Вешалка монолит \"Крафт\"",
+      "title": "Прямая рейка (МДФ 6 мм)",
       "style": "Прихожая Сканди",
       "size": "medium",
       "image": "/images/gallery/interior-11.jpg",
-      "productId": 9,
-      "productName": "Вешалка монолит \"Крафт\" (3 шт.)",
-      "category": "Вешалки"
+      "productId": 4,
+      "productName": "Прямая рейка (МДФ 6 мм)",
+      "category": "Панели под покраску"
     },
     {
       "id": 12,
-      "title": "Вешалка монолит \"Вотан\"",
+      "title": "Панель монолит \"Крафт\"",
       "style": "Современный дуб",
       "size": "small",
       "image": "/images/gallery/interior-12.jpg",
-      "productId": 10,
-      "productName": "Вешалка монолит \"Вотан\" (3 шт.)",
-      "category": "Вешалки"
+      "productId": 9,
+      "productName": "Панель монолит \"Крафт\"",
+      "category": "Вешалки монолит в цвете"
     },
     {
       "id": 13,
-      "title": "Вешалка монолит \"Шимо\"",
+      "title": "Панель монолит \"Крафт\"",
       "style": "Элегантная прихожая",
       "size": "small",
       "image": "/images/gallery/interior-13.jpg",
-      "productId": 11,
-      "productName": "Вешалка монолит \"Шимо\" (3 шт.)",
-      "category": "Вешалки"
+      "productId": 9,
+      "productName": "Панель монолит \"Крафт\"",
+      "category": "Вешалки монолит в цвете"
     },
     {
       "id": 14,
@@ -136,126 +136,126 @@
       "style": "Уютный кабинет",
       "size": "large",
       "image": "/images/gallery/interior-14.jpg",
-      "productId": 14,
-      "productName": "Панель монолит \"Табак\" (4 шт.)",
-      "category": "Панели"
+      "productId": 8,
+      "productName": "Панель монолит \"Табак\"",
+      "category": "Вешалки монолит в цвете"
     },
     {
       "id": 15,
-      "title": "Панель монолит \"Крафт\"",
+      "title": "Вешалка монолит \"Табак\"",
       "style": "Спальня Джапанди",
       "size": "medium",
       "image": "/images/gallery/interior-15.jpg",
-      "productId": 15,
-      "productName": "Панель монолит \"Крафт\" (4 шт.)",
-      "category": "Панели"
+      "productId": 8,
+      "productName": "Вешалка монолит \"Табак\"",
+      "category": "Вешалки монолит в цвете"
     },
     {
       "id": 16,
-      "title": "Панель монолит \"Вотан\"",
+      "title": "Вешалка монолит \"Табак\"",
       "style": "Органический стиль",
       "size": "small",
       "image": "/images/gallery/interior-16.jpg",
-      "productId": 16,
-      "productName": "Панель монолит \"Вотан\" (4 шт.)",
-      "category": "Панели"
+      "productId": 8,
+      "productName": "Вешалка монолит \"Табак\"",
+      "category": "Вешалки монолит в цвете"
     },
     {
       "id": 17,
-      "title": "Панель монолит \"Шимо\"",
+      "title": "Косая рейка (МДФ 6 мм)",
       "style": "Мягкий монохром",
       "size": "small",
       "image": "/images/gallery/interior-17.jpg",
-      "productId": 17,
-      "productName": "Панель монолит \"Шимо\" (4 шт.)",
-      "category": "Панели"
+      "productId": 3,
+      "productName": "Косая рейка (МДФ 6 мм)",
+      "category": "Панели под покраску"
     },
     {
       "id": 18,
-      "title": "Прямая рейка (МДФ 6 мм)",
+      "title": "Косая рейка (МДФ 6 мм)",
       "style": "Перегородка в зонировании",
       "size": "medium",
       "image": "/images/gallery/interior-18.jpg",
-      "productId": 1,
-      "productName": "Прямая рейка (МДФ 6 мм) (4 шт.)",
-      "category": "Деревянные рейки"
+      "productId": 3,
+      "productName": "Косая рейка (МДФ 6 мм)",
+      "category": "Панели под покраску"
     },
     {
       "id": 19,
-      "title": "Кирпич (МДФ 6 мм)",
+      "title": "Косая рейка (МДФ 6 мм)",
       "style": "Акцент у изголовья",
       "size": "small",
       "image": "/images/gallery/interior-19.jpg",
-      "productId": 2,
-      "productName": "Кирпич (МДФ 6 мм) (4 шт.)",
-      "category": "Панели"
+      "productId": 3,
+      "productName": "Косая рейка (МДФ 6 мм)",
+      "category": "Панели под покраску"
     },
     {
       "id": 20,
-      "title": "Косая рейка (МДФ 6 мм)",
+      "title": "Прямая рейка (МДФ 6 мм)",
       "style": "Светлая столовая",
       "size": "medium",
       "image": "/images/gallery/interior-20.jpg",
-      "productId": 3,
-      "productName": "Косая рейка (МДФ 6 мм) (4 шт.)",
-      "category": "Деревянные рейки"
+      "productId": 1,
+      "productName": "Прямая рейка (МДФ 6 мм)",
+      "category": "Панели под покраску"
     },
     {
       "id": 21,
-      "title": "Панель монолит \"УЗОР\"",
+      "title": "Косая рейка (МДФ 6 мм)",
       "style": "Арт-зона в коридоре",
       "size": "large",
       "image": "/images/gallery/interior-21.jpg",
-      "productId": 12,
-      "productName": "Панель монолит \"УЗОР\" (4 шт.)",
-      "category": "Панели"
+      "productId": 3,
+      "productName": "Косая рейка (МДФ 6 мм)",
+      "category": "Панели под покраску"
     },
     {
       "id": 22,
-      "title": "Вешалка монолит \"Сонома\"",
+      "title": "Косая рейка (МДФ 6 мм)",
       "style": "Компактная входная зона",
       "size": "small",
       "image": "/images/gallery/interior-22.jpg",
-      "productId": 7,
-      "productName": "Вешалка монолит \"Сонома\" (3 шт.)",
-      "category": "Вешалки"
+      "productId": 3,
+      "productName": "Косая рейка (МДФ 6 мм)",
+      "category": "Панели под покраску"
     },
     {
       "id": 23,
-      "title": "Прямая рейка (МДФ 6 мм) 6 шт.",
+      "title": "Косая рейка (МДФ 6 мм)",
       "style": "ТВ-зона в гостиной",
       "size": "medium",
       "image": "/images/gallery/interior-23.jpg",
-      "productId": 4,
-      "productName": "Прямая рейка (МДФ 6 мм) (6 шт.)",
-      "category": "Деревянные рейки"
+      "productId": 3,
+      "productName": "Косая рейка (МДФ 6 мм)",
+      "category": "Панели под покраску"
     },
     {
       "id": 24,
-      "title": "Панель монолит \"Сонома\"",
+      "title": "Косая рейка (МДФ 6 мм)",
       "style": "Теплый сканди",
       "size": "small",
       "image": "/images/gallery/interior-24.jpg",
-      "productId": 13,
-      "productName": "Панель монолит \"Сонома\" (4 шт.)",
-      "category": "Панели"
+      "productId": 3,
+      "productName": "Косая рейка (МДФ 6 мм)",
+      "category": "Панели под покраску"
     },
     {
       "id": 25,
-      "title": "Вешалка монолит \"Табак\"",
+      "title": "Косая рейка (МДФ 6 мм)",
       "style": "Темный шоколад",
       "size": "medium",
       "image": "/images/gallery/interior-25.jpg",
-      "productId": 8,
-      "productName": "Вешалка монолит \"Табак\" (3 шт.)",
-      "category": "Вешалки"
+      "productId": 3,
+      "productName": "Косая рейка (МДФ 6 мм) ",
+      "category": "Панели под покраску"
     },
     {
       "id": 26,
       "title": "Кирпич (МДФ 6 мм) 6 шт.",
       "style": "Лофт с подсветкой",
       "size": "small",
-      "image": "/images/gallery/interior-03.jpg",
+      "image": null,
       "productId": 5,
       "productName": "Кирпич (МДФ 6 мм) (6 шт.)",
       "category": "Панели"
